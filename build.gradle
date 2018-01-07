@@ -1,0 +1,134 @@
+group 'cabanas.garcia.ismael'
+version '0.0.1-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+
+    dependencies {
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3'
+        classpath group: "com.avast.gradle", name: "docker-compose-gradle-plugin", version: "0.4.2"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'docker-compose'
+
+apply from: 'build-static-code-analysis.gradle'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    integrationtestCompile.extendsFrom testCompile
+    integrationtestRuntime.extendsFrom testRuntime
+    acceptancetestCompile.extendsFrom testCompile
+    acceptancetestRuntime.extendsFrom testRuntime
+}
+
+sourceSets {
+    integrationtest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+
+            // Use "java" if you don't use Scala as a programming language
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+    acceptancetest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+
+            // Use "java" if you don't use Scala as a programming language
+            srcDir file('src/acceptance-test/java')
+        }
+        resources.srcDir file('src/acceptance-test/resources')
+    }
+}
+
+dependencies {
+
+    testCompile("junit:junit:4.12")
+    testCompile("org.assertj:assertj-core:3.6.1")
+    testCompile("org.mockito:mockito-core:2.10.0")
+    testCompile("info.cukes:cucumber-java8:1.2.5")
+    testCompile("info.cukes:cucumber-junit:1.2.5")
+    testCompile("info.cukes:cucumber-spring:1.2.4")
+}
+
+// presentation of tests result
+tasks.withType(Test) {
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+
+    testLogging {
+        // set options for log level LIFECYCLE
+        events "skipped", "failed", "standardOut"
+        showExceptions true
+        exceptionFormat "short"
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
+}
+
+task integrationTest(type: Test) {
+    testClassesDir = sourceSets.integrationtest.output.classesDir
+    classpath = sourceSets.integrationtest.runtimeClasspath
+    outputs.upToDateWhen { false }
+
+    // This is not needed, but I like to see which tests have run
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+/*
+integrationTest {
+    useJUnit {
+        includeCategories 'cabanas.garcia.ismael.storeroom.IntegrationTests'
+    }
+}
+*/
+
+dockerCompose.isRequiredBy(integrationTest)
+
+dockerCompose {
+    useComposeFiles = ['docker-compose-integration-test.yml'] // like 'docker-compose -f <file>'
+    captureContainersOutput = true // prints output of all containers to Gradle output - very useful for debugging
+    stopContainers = true // doesn't call `docker-compose down` - useful for debugging
+    removeContainers = true
+}
+
+integrationTest.doFirst {
+    systemProperty 'postgres.host', dockerCompose.servicesInfos.postgresql.'postgresql_1'.host
+    systemProperty 'postgres.port', dockerCompose.servicesInfos.postgresql.'postgresql_1'.port
+}
+
+integrationTest.mustRunAfter test

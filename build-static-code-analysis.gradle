@@ -1,0 +1,35 @@
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.kt3k.coveralls'
+
+
+pmd {
+    ruleSetFiles = files("$rootProject.projectDir/config/pmd/pmd-ruleset.xml")
+    consoleOutput = true
+}
+findbugs {
+    includeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-config.xml")
+    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-excludes.xml")
+}
+
+checkstyle {
+    toolVersion = "6.16"
+    configFile = file("${rootProject.projectDir}/config/checkstyle/checkstyle.xml")
+    configProperties = [ "suppressionFile" : file("${rootProject.projectDir}/config/checkstyle/checkstyle-suppressions.xml")]
+}
+
+jacoco {
+    toolVersion = "0.7.7.201606060606"
+}
+
+jacocoTestReport {
+    group = "Reporting"
+    executionData tasks.withType(Test)
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination "${buildDir}/reports/coverage"
+    }
+}

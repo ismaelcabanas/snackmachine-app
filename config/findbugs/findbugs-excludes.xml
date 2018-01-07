@@ -1,0 +1,19 @@
+<FindBugsFilter>
+    <!-- Fallback excludes file.  This file will be used when a project lacks a findbugs-excludes.xml file -->
+    <Match>
+        <Source name="~.*\.groovy" />
+        <Or>
+            <Field name="~__.*" />
+            <Field name="~\$.*" />
+            <Method name="~\$.*" />
+        </Or>
+    </Match>
+    <Match>
+        <Source name="~.*\.groovy" />
+        <Bug code="UPM" />
+    </Match>
+    <Match>
+        <!-- Ignore test entities as these will often have unused things -->
+        <Package name="~cabanas\.garcia\.ismael\.storeroom\.bdd\.steps.*"/>
+    </Match>
+</FindBugsFilter>
