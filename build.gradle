@@ -1,4 +1,4 @@
-group 'cabanas.garcia.ismael'
+group 'cabanas.garcia.ismael.snackmachine'
 version '0.0.1-SNAPSHOT'
 
 buildscript {
