@@ -1,6 +1,6 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
-public class SnackMachine {
+public class SnackMachine extends Entity {
 
     private Money moneyInside;
     private Money moneyInTransaction;
