@@ -23,5 +23,28 @@ public class MoneyShould {
         assertThat(actual.getTwentyDollarCount()).isEqualTo(12);
     }
 
+    @Test public void
+    two_instances_of_money_are_equal_if_contains_same_money_account() {
+        Money moneyOne = new Money(1, 2, 3, 4, 5,
+                6);
+        Money moneyTwo = new Money(1, 2, 3, 4, 5,
+                6);
+
+        boolean actual = moneyOne.equals(moneyTwo);
+
+        assertThat(actual).isTrue();
+    }
+
+    @Test public void
+    two_instances_of_money_are_not_equal_if_not_contains_same_money_account() {
+        Money moneyOne = new Money(1, 2, 3, 4, 5,
+                6);
+        Money moneyTwo = new Money(2, 2, 3, 4, 5,
+                6);
+
+        boolean actual = moneyOne.equals(moneyTwo);
+
+        assertThat(actual).isFalse();
+    }
 
 }
