@@ -11,6 +11,15 @@ public class Money extends ValueObject<Money> {
     private int fiveDollarCount;
     private int twentyDollarCount;
 
+    public Money(int oneCentCount, int tenCentCount, int quarterCentCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount) {
+        this.oneCentCount = oneCentCount;
+        this.tenCentCount = tenCentCount;
+        this.quarterCentCount = quarterCentCount;
+        this.oneDollarCount = oneDollarCount;
+        this.fiveDollarCount = fiveDollarCount;
+        this.twentyDollarCount = twentyDollarCount;
+    }
+
     public int getOneCentCount() {
         return oneCentCount;
     }
@@ -35,13 +44,14 @@ public class Money extends ValueObject<Money> {
         return twentyDollarCount;
     }
 
-    public void add(Money money) {
+    public Money add(Money money) {
         this.oneCentCount += money.getOneCentCount();
         this.tenCentCount += money.getTenCentCount();
         this.quarterCentCount += money.getQuarterCentCount();
         this.oneDollarCount += money.getOneDollarCount();
         this.fiveDollarCount += money.getFiveDollarCount();
         this.twentyDollarCount += money.getTwentyDollarCount();
+        return new Money(oneCentCount, tenCentCount, quarterCentCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
     }
 
     @Override
