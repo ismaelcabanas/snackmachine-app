@@ -3,8 +3,17 @@ package cabanas.garcia.ismael.snackmachine.domain.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 public class Money extends ValueObject<Money> {
     private static final String THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER = "The parameter should be a positive number";
+    private static final BigDecimal ONE_CENT = new BigDecimal("0.01");
+    private static final BigDecimal TEN_CENT = new BigDecimal("0.1");
+    private static final BigDecimal QUARTER_CENT = new BigDecimal("0.25");
+    private static final BigDecimal ONE_DOLLAR = BigDecimal.ONE;
+    private static final BigDecimal FIVE_DOLLARS = new BigDecimal("5");
+    private static final BigDecimal TWENTY_DOLLARS = new BigDecimal("20");
 
     private int oneCentCount;
     private int tenCentCount;
@@ -107,4 +116,14 @@ public class Money extends ValueObject<Money> {
                 .isEquals();
     }
 
+    public double amount() {
+        return new BigDecimal(oneCentCount).multiply(ONE_CENT)
+                .add(new BigDecimal(tenCentCount).multiply(TEN_CENT))
+                .add(new BigDecimal(quarterCentCount).multiply(QUARTER_CENT))
+                .add(new BigDecimal(oneDollarCount).multiply(ONE_DOLLAR))
+                .add(new BigDecimal(fiveDollarCount).multiply(FIVE_DOLLARS))
+                .add(new BigDecimal(twentyDollarCount).multiply(TWENTY_DOLLARS))
+                .round(MathContext.DECIMAL32)
+                .doubleValue();
+    }
 }

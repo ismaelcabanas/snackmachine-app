@@ -70,4 +70,25 @@ public class MoneyShould {
         exception.expect(IllegalArgumentException.class);
         new Money(oneCentCount, tenCentCount, quarterCentCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
     }
+
+    @Test
+    @Parameters({
+            "0, 0, 0, 0, 0, 0, 0",
+            "1, 0, 0, 0, 0, 0, 0.01",
+            "1, 2, 0, 0, 0, 0, 0.21",
+            "1, 2, 3, 0, 0, 0, 0.96",
+            "1, 2, 3, 4, 0, 0, 4.96",
+            "1, 2, 3, 4, 5, 0, 29.96",
+            "1, 2, 3, 4, 5, 6, 149.96",
+            "11, 0, 0, 0, 0, 0, 0.11",
+            "110, 0, 0, 0, 100, 0, 501.1"
+        }) public void
+    calculate_amount_correctly(int oneCentCount, int tenCentCount, int quarterCentCount, int oneDollarCount,
+                               int fiveDollarCount, int twentyDollarCount, double expectedAmount) {
+        Money money = new Money(oneCentCount, tenCentCount, quarterCentCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
+
+        double amount = money.amount();
+
+        assertThat(amount).isEqualTo(expectedAmount);
+    }
 }
