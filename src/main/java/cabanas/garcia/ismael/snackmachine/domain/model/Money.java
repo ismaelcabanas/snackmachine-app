@@ -4,6 +4,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class Money extends ValueObject<Money> {
+    private static final String THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER = "The parameter should be a positive number";
+
     private int oneCentCount;
     private int tenCentCount;
     private int quarterCentCount;
@@ -12,6 +14,24 @@ public class Money extends ValueObject<Money> {
     private int twentyDollarCount;
 
     public Money(int oneCentCount, int tenCentCount, int quarterCentCount, int oneDollarCount, int fiveDollarCount, int twentyDollarCount) {
+        if (oneCentCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
+        if (tenCentCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
+        if (quarterCentCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
+        if (oneDollarCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
+        if (fiveDollarCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
+        if (twentyDollarCount < 0) {
+            throw new IllegalArgumentException(THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER);
+        }
         this.oneCentCount = oneCentCount;
         this.tenCentCount = tenCentCount;
         this.quarterCentCount = quarterCentCount;

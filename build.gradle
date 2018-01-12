@@ -67,6 +67,7 @@ dependencies {
     testCompile("info.cukes:cucumber-java8:1.2.5")
     testCompile("info.cukes:cucumber-junit:1.2.5")
     testCompile("info.cukes:cucumber-spring:1.2.4")
+    testCompile("pl.pragmatists:JUnitParams:1.1.0")
 }
 
 // presentation of tests result
