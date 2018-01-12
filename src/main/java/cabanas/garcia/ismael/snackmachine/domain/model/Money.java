@@ -126,4 +126,8 @@ public class Money extends ValueObject<Money> {
                 .round(MathContext.DECIMAL32)
                 .doubleValue();
     }
+
+    public static Money none() {
+        return new Money(0, 0, 0, 0, 0, 0);
+    }
 }
