@@ -16,4 +16,12 @@ public class SnackMachineShould {
         assertThat(snackMachine.amountInTransaction()).isEqualTo(0.00);
     }
 
+    @Test public void
+    accumulate_money_in_transaction_when_insert_money() {
+        SnackMachine snackMachine = new SnackMachine();
+
+        snackMachine.insertMoney(new Money(1, 0, 0, 0, 0, 0));
+
+        assertThat(snackMachine.amountInTransaction()).isEqualTo(0.01);
+    }
 }
