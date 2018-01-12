@@ -40,7 +40,7 @@ public class SnackMachineShould {
     }
 
     @Test public void
-    updated_money_inside_after_buy_snack() {
+    update_money_inside_after_buy_snack() {
         SnackMachine snackMachine = new SnackMachine();
         snackMachine.insertMoney(new Money(0, 0, 0, 1, 0, 0));
         snackMachine.buySnack();
