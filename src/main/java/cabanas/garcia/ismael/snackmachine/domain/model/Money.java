@@ -8,12 +8,20 @@ import java.math.MathContext;
 
 public class Money extends ValueObject<Money> {
     private static final String THE_PARAMETER_SHOULD_BE_A_POSITIVE_NUMBER = "The parameter should be a positive number";
+
     private static final BigDecimal ONE_CENT = new BigDecimal("0.01");
-    private static final BigDecimal TEN_CENT = new BigDecimal("0.1");
-    private static final BigDecimal QUARTER_CENT = new BigDecimal("0.25");
+    private static final BigDecimal TEN_CENTS = new BigDecimal("0.1");
+    private static final BigDecimal QUARTER_CENTS = new BigDecimal("0.25");
     private static final BigDecimal ONE_DOLLAR = BigDecimal.ONE;
     private static final BigDecimal FIVE_DOLLARS = new BigDecimal("5");
     private static final BigDecimal TWENTY_DOLLARS = new BigDecimal("20");
+
+    public static final Money CENT = new Money(1, 0, 0, 0, 0, 0);
+    public static final Money TEN_CENT = new Money(0, 1, 0, 0, 0, 0);
+    public static final Money QUARTER_CENT = new Money(0, 0, 1, 0, 0, 0);
+    public static final Money DOLLAR = new Money(0, 0, 0, 1, 0, 0);
+    public static final Money FIVE_DOLLAR = new Money(0, 0, 0, 0, 1, 0);
+    public static final Money TWENTY_DOLLAR = new Money(0, 0, 0, 0, 0, 1);
 
     private int oneCentCount;
     private int tenCentCount;
@@ -118,8 +126,8 @@ public class Money extends ValueObject<Money> {
 
     public double amount() {
         return new BigDecimal(oneCentCount).multiply(ONE_CENT)
-                .add(new BigDecimal(tenCentCount).multiply(TEN_CENT))
-                .add(new BigDecimal(quarterCentCount).multiply(QUARTER_CENT))
+                .add(new BigDecimal(tenCentCount).multiply(TEN_CENTS))
+                .add(new BigDecimal(quarterCentCount).multiply(QUARTER_CENTS))
                 .add(new BigDecimal(oneDollarCount).multiply(ONE_DOLLAR))
                 .add(new BigDecimal(fiveDollarCount).multiply(FIVE_DOLLARS))
                 .add(new BigDecimal(twentyDollarCount).multiply(TWENTY_DOLLARS))
