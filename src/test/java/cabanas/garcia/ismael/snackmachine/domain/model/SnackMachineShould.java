@@ -4,9 +4,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.math.BigDecimal;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SnackMachineShould {
+
+    private static final Money DOLLAR = new Money(0, 0, 0, 1, 0, 0);
+
+    private static final short FIRST_POSITION = 1;
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -40,16 +46,27 @@ public class SnackMachineShould {
     }
 
     @Test public void
-    update_money_inside_after_buy_snack() {
+    buySnack_update_money_inside() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.insertMoney(new Money(0, 0, 0, 1, 0, 0));
-        snackMachine.buySnack();
-        snackMachine.insertMoney(new Money(0, 0, 0, 1, 0, 0));
+        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(1));
+        snackMachine.insertMoney(DOLLAR);
+        snackMachine.buySnack(FIRST_POSITION);
+        snackMachine.insertMoney(DOLLAR);
 
-        snackMachine.buySnack();
+        snackMachine.buySnack(FIRST_POSITION);
 
         assertThat(snackMachine.amountInTransaction()).isEqualTo(0.00);
         assertThat(snackMachine.amountInside()).isEqualTo(2.00);
+    }
 
+    @Test public void
+    buySnack_trades_inserted_money_for_a_snack() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(1));
+        snackMachine.insertMoney(DOLLAR);
+
+        snackMachine.buySnack(FIRST_POSITION);
+
+        assertThat(snackMachine.snacksOfSlot(1)).isEqualTo(9);
     }
 }
