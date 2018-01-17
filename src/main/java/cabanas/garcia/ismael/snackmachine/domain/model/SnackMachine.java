@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SnackMachine extends Entity {
+public class SnackMachine extends AgreggateRoot {
 
     private static final List<Money> COINS_AND_NOTES = Arrays.asList(
         Money.CENT, Money.TEN_CENT, Money.QUARTER_CENT,

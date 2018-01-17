@@ -1,6 +1,6 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
-public class Snack extends Entity {
+public class Snack extends AgreggateRoot {
 
     private final String name;
 
