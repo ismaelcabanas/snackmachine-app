@@ -10,6 +10,9 @@ public class SnackMachine extends Entity {
     private static final List<Money> COINS_AND_NOTES = Arrays.asList(
         Money.CENT, Money.TEN_CENT, Money.QUARTER_CENT,
         Money.DOLLAR, Money.FIVE_DOLLAR, Money.TWENTY_DOLLAR);
+    private static final short FIRST_POSITION = 1;
+    private static final short SECOND_POSITION = 2;
+    private static final short THIRD_POSITION = 3;
 
     private Money moneyInside;
     private Money moneyInTransaction;
@@ -19,6 +22,9 @@ public class SnackMachine extends Entity {
         this.moneyInside = Money.none();
         this.moneyInTransaction = Money.none();
         this.slots = new ArrayList<>();
+        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, FIRST_POSITION));
+        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, SECOND_POSITION));
+        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, THIRD_POSITION));
     }
 
     public void insertMoney(Money money) {
@@ -52,7 +58,7 @@ public class SnackMachine extends Entity {
 
     public void addSnacks(short position, Snack snack, int quantity, BigDecimal price) {
         Slot slot = new Slot(snack, this, quantity, price, position);
-        slots.add(slot);
+        slots.add(position-1, slot);
     }
 
     public int snacksOfSlot(int position) {

@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SnackMachineShould {
 
     private static final Money DOLLAR = new Money(0, 0, 0, 1, 0, 0);
+    private static final Money QUARTER_DOLLAR = new Money(0, 0, 1, 0, 0, 0);
 
     private static final short FIRST_POSITION = 1;
 
@@ -69,4 +70,6 @@ public class SnackMachineShould {
 
         assertThat(snackMachine.snacksOfSlot(1)).isEqualTo(9);
     }
+
+    
 }
