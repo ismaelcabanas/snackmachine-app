@@ -39,13 +39,21 @@ public class SnackMachine extends Entity {
     }
 
     public void buySnack(short position) {
+        Slot slot = slots.stream()
+                .filter(s -> s.position() == position)
+                .findFirst()
+                .orElseThrow(SlotNotFoundException::new);
+
+        if(slot.quantity() == 0) {
+            throw new SnackNotFoundException();
+        }
+        if(this.moneyInTransaction.amount() < slot.price()) {
+            throw new NotEnoughMoneyInsertedException();
+        }
+
         this.moneyInside.add(this.moneyInTransaction);
         this.moneyInTransaction = Money.none();
-        slots.stream()
-                .filter(slot -> slot.position() == position)
-                .findFirst()
-                .orElseThrow(SlotNotFoundException::new)
-                .dropSnack();
+        slot.dropSnack();
     }
 
     public double amountInTransaction() {

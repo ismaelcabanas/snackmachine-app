@@ -71,5 +71,22 @@ public class SnackMachineShould {
         assertThat(snackMachine.snacksOfSlot(1)).isEqualTo(9);
     }
 
-    
+    @Test public void
+    cannot_buy_snack_if_slot_is_empty() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.insertMoney(DOLLAR);
+        exception.expect(SnackNotFoundException.class);
+
+        snackMachine.buySnack(FIRST_POSITION);
+    }
+
+    @Test public void
+    cannot_buy_snack_if_not_enough_money_inserted() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(2));
+        snackMachine.insertMoney(DOLLAR);
+        exception.expect(NotEnoughMoneyInsertedException.class);
+
+        snackMachine.buySnack(FIRST_POSITION);
+    }
 }

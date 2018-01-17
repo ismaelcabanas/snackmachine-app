@@ -29,4 +29,8 @@ public class Slot extends Entity {
     public int quantity() {
         return quantity;
     }
+
+    public double price() {
+        return price.doubleValue();
+    }
 }
