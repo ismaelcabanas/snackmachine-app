@@ -15,12 +15,12 @@ public class SnackMachine extends AgreggateRoot {
     private static final short THIRD_POSITION = 3;
 
     private Money moneyInside;
-    private Money moneyInTransaction;
+    private double moneyInTransaction;
     private List<Slot> slots;
 
     public SnackMachine() {
         this.moneyInside = Money.none();
-        this.moneyInTransaction = Money.none();
+        this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         this.slots = new ArrayList<>();
         this.slots.add(new Slot(null, SnackPile.EMPTY, FIRST_POSITION));
         this.slots.add(new Slot(null, SnackPile.EMPTY, SECOND_POSITION));
@@ -31,11 +31,14 @@ public class SnackMachine extends AgreggateRoot {
         if (!COINS_AND_NOTES.contains(money)) {
             throw new BadMoneyException();
         }
-        this.moneyInTransaction.add(money);
+        this.moneyInTransaction += money.amount();
+        this.moneyInside.add(money);
     }
 
     public void returnMoney() {
-        this.moneyInTransaction = Money.none();
+        Money returnedMoney = moneyInside.allocate(moneyInTransaction);
+        this.moneyInside = moneyInside.substract(returnedMoney);
+        this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
     }
 
     public void buySnack(short position) {
@@ -48,17 +51,16 @@ public class SnackMachine extends AgreggateRoot {
         if(snackPile.quantity() == 0) {
             throw new SnackNotFoundException();
         }
-        if(this.moneyInTransaction.amount() < snackPile.price()) {
+        if(this.moneyInTransaction < snackPile.price()) {
             throw new NotEnoughMoneyInsertedException();
         }
 
-        this.moneyInside.add(this.moneyInTransaction);
-        this.moneyInTransaction = Money.none();
+        this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         slot.dropSnack();
     }
 
     public double amountInTransaction() {
-        return this.moneyInTransaction.amount();
+        return this.moneyInTransaction;
     }
 
     public double amountInside() {
@@ -77,5 +79,17 @@ public class SnackMachine extends AgreggateRoot {
                 .orElseThrow(SlotNotFoundException::new)
                 .snackPile()
                 .quantity();
+    }
+
+    public void loadMoney(Money money) {
+        if (!COINS_AND_NOTES.contains(money)) {
+            throw new BadMoneyException();
+        }
+
+        this.moneyInside.add(money);
+    }
+
+    public Money moneyInside() {
+        return this.moneyInside;
     }
 }

@@ -89,4 +89,19 @@ public class SnackMachineShould {
 
         snackMachine.buySnack(FIRST_POSITION);
     }
+
+    @Test public void
+    snack_machine_returns_money_with_highest_denomination_first() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.loadMoney(DOLLAR);
+        snackMachine.insertMoney(QUARTER_DOLLAR);
+        snackMachine.insertMoney(QUARTER_DOLLAR);
+        snackMachine.insertMoney(QUARTER_DOLLAR);
+        snackMachine.insertMoney(QUARTER_DOLLAR);
+
+        snackMachine.returnMoney();
+
+        assertThat(snackMachine.moneyInside().quarterCount()).isEqualTo(4);
+        assertThat(snackMachine.moneyInside().dollarCount()).isEqualTo(0);
+    }
 }

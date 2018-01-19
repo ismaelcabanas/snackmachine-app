@@ -138,4 +138,39 @@ public class Money extends ValueObject<Money> {
     public static Money none() {
         return new Money(0, 0, 0, 0, 0, 0);
     }
+
+    public int quarterCount() {
+        return quarterCentCount;
+    }
+
+    public int dollarCount() {
+        return oneDollarCount;
+    }
+
+    public Money substract(Money money) {
+        this.oneCentCount -= money.getOneCentCount();
+        this.tenCentCount -= money.getTenCentCount();
+        this.quarterCentCount -= money.getQuarterCentCount();
+        this.oneDollarCount -= money.getOneDollarCount();
+        this.fiveDollarCount -= money.getFiveDollarCount();
+        this.twentyDollarCount -= money.getTwentyDollarCount();
+        return new Money(oneCentCount, tenCentCount, quarterCentCount, oneDollarCount, fiveDollarCount, twentyDollarCount);
+    }
+
+    public Money allocate(double amount) {
+        int twentyDollarCountAllocated = Double.valueOf(Math.min(amount / 20, this.twentyDollarCount)).intValue();
+        amount = amount - twentyDollarCountAllocated * 20;
+        int fiveDollarCountAllocated = Double.valueOf(Math.min(amount / 5, this.fiveDollarCount)).intValue();
+        amount = amount - fiveDollarCountAllocated * 5;
+        int oneDollarCountAllocated = Double.valueOf(Math.min(amount / 1, this.oneDollarCount)).intValue();
+        amount = amount - oneDollarCountAllocated * 1;
+        int quarterCentCountAllocated = Double.valueOf(Math.min(amount / 0.25, this.quarterCentCount)).intValue();
+        amount = amount - quarterCentCountAllocated * 0.25;
+        int tenCentCountAllocated = Double.valueOf(Math.min(amount / 0.1, this.tenCentCount)).intValue();
+        amount = amount - tenCentCountAllocated * 0.1;
+        int oneCentCountAllocated = Double.valueOf(Math.min(amount / 0.01, this.oneCentCount)).intValue();
+
+        return new Money(oneCentCountAllocated, tenCentCountAllocated, quarterCentCountAllocated,
+                oneDollarCountAllocated, fiveDollarCountAllocated, twentyDollarCountAllocated);
+    }
 }
