@@ -22,9 +22,9 @@ public class SnackMachine extends AgreggateRoot {
         this.moneyInside = Money.none();
         this.moneyInTransaction = Money.none();
         this.slots = new ArrayList<>();
-        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, FIRST_POSITION));
-        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, SECOND_POSITION));
-        this.slots.add(new Slot(null, this, 0, BigDecimal.ZERO, THIRD_POSITION));
+        this.slots.add(new Slot(null, SnackPile.EMPTY, FIRST_POSITION));
+        this.slots.add(new Slot(null, SnackPile.EMPTY, SECOND_POSITION));
+        this.slots.add(new Slot(null, SnackPile.EMPTY, THIRD_POSITION));
     }
 
     public void insertMoney(Money money) {
@@ -44,10 +44,11 @@ public class SnackMachine extends AgreggateRoot {
                 .findFirst()
                 .orElseThrow(SlotNotFoundException::new);
 
-        if(slot.quantity() == 0) {
+        SnackPile snackPile = slot.snackPile();
+        if(snackPile.quantity() == 0) {
             throw new SnackNotFoundException();
         }
-        if(this.moneyInTransaction.amount() < slot.price()) {
+        if(this.moneyInTransaction.amount() < snackPile.price()) {
             throw new NotEnoughMoneyInsertedException();
         }
 
@@ -65,7 +66,7 @@ public class SnackMachine extends AgreggateRoot {
     }
 
     public void addSnacks(short position, Snack snack, int quantity, BigDecimal price) {
-        Slot slot = new Slot(snack, this, quantity, price, position);
+        Slot slot = new Slot(this, new SnackPile(snack, quantity, price), position);
         slots.add(position-1, slot);
     }
 
@@ -74,6 +75,7 @@ public class SnackMachine extends AgreggateRoot {
                 .filter(slot -> slot.position() == position)
                 .findFirst()
                 .orElseThrow(SlotNotFoundException::new)
+                .snackPile()
                 .quantity();
     }
 }
