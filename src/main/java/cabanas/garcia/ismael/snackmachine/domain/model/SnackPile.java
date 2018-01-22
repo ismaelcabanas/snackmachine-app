@@ -19,6 +19,12 @@ public class SnackPile extends ValueObject<SnackPile> {
         this.price = price;
     }
 
+    public SnackPile(Builder builder) {
+        this.snack = builder.snack;
+        this.quantity = builder.quantity;
+        this.price = builder.price;
+    }
+
     @Override
     protected int hashCodeCore() {
         return new HashCodeBuilder(17, 37)
@@ -47,5 +53,35 @@ public class SnackPile extends ValueObject<SnackPile> {
 
     public double price() {
         return price.doubleValue();
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+
+        private Snack snack;
+        private int quantity;
+        private BigDecimal price;
+
+        public Builder setSnack(Snack snack) {
+            this.snack = snack;
+            return this;
+        }
+
+        public Builder setQuantity(int quantity) {
+            this.quantity = quantity;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public SnackPile build() {
+            return new SnackPile(this);
+        }
     }
 }

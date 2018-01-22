@@ -94,7 +94,6 @@ public class Money extends ValueObject<Money> {
     @Override
     protected int hashCodeCore() {
         return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
                 .append(oneCentCount)
                 .append(tenCentCount)
                 .append(quarterCentCount)
@@ -172,5 +171,17 @@ public class Money extends ValueObject<Money> {
 
         return new Money(oneCentCountAllocated, tenCentCountAllocated, quarterCentCountAllocated,
                 oneDollarCountAllocated, fiveDollarCountAllocated, twentyDollarCountAllocated);
+    }
+
+    @Override
+    public String toString() {
+        return "Money{" +
+                "oneCentCount=" + oneCentCount +
+                ", tenCentCount=" + tenCentCount +
+                ", quarterCentCount=" + quarterCentCount +
+                ", oneDollarCount=" + oneDollarCount +
+                ", fiveDollarCount=" + fiveDollarCount +
+                ", twentyDollarCount=" + twentyDollarCount +
+                '}';
     }
 }

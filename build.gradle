@@ -2,12 +2,16 @@ group 'cabanas.garcia.ismael.snackmachine'
 version '0.0.1-SNAPSHOT'
 
 buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
     repositories {
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.6.3'
         classpath group: "com.avast.gradle", name: "docker-compose-gradle-plugin", version: "0.4.2"
     }
@@ -17,6 +21,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'docker-compose'
+apply plugin: 'org.springframework.boot'
 
 apply from: 'build-static-code-analysis.gradle'
 
@@ -25,6 +30,10 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+ext {
+    springCloudVersion = 'Edgware.SR1'
 }
 
 configurations {
@@ -59,7 +68,21 @@ sourceSets {
 
 dependencies {
 
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-jdbc")
+
     compile("org.apache.commons:commons-lang3:3.5")
+
+    //flyway
+    compile("org.flywaydb:flyway-core:4.2.0")
+
+    // postgres
+    compile('org.postgresql:postgresql:42.1.1') {
+        exclude group: "org.slf4j", module: "slf4j-simple"
+    }
+
+    // datasource
+    compile("com.zaxxer:HikariCP:2.6.2")
 
     testCompile("junit:junit:4.12")
     testCompile("org.assertj:assertj-core:3.6.1")
@@ -68,7 +91,15 @@ dependencies {
     testCompile("info.cukes:cucumber-junit:1.2.5")
     testCompile("info.cukes:cucumber-spring:1.2.4")
     testCompile("pl.pragmatists:JUnitParams:1.1.0")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 
 // presentation of tests result
 tasks.withType(Test) {

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class SnackMachine extends AgreggateRoot {
 
@@ -19,12 +20,23 @@ public class SnackMachine extends AgreggateRoot {
     private List<Slot> slots;
 
     public SnackMachine() {
+        super(UUID.randomUUID().toString());
         this.moneyInside = Money.none();
         this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         this.slots = new ArrayList<>();
         this.slots.add(new Slot(null, SnackPile.EMPTY, FIRST_POSITION));
         this.slots.add(new Slot(null, SnackPile.EMPTY, SECOND_POSITION));
         this.slots.add(new Slot(null, SnackPile.EMPTY, THIRD_POSITION));
+    }
+
+    private SnackMachine(Builder builder) {
+        super(builder.id);
+        this.moneyInside = new Money(builder.smOneCentCount, builder.smTenCentCount, builder.smQuarterCentCount,
+                builder.smOneDollarCount, builder.smFiveDollarCount, builder.smTwentyDollarCount);
+        this.slots = new ArrayList<>();
+        this.slots.add(builder.slotOne);
+        this.slots.add(builder.slotTwo);
+        this.slots.add(builder.slotThree);
     }
 
     public void insertMoney(Money money) {
@@ -91,5 +103,91 @@ public class SnackMachine extends AgreggateRoot {
 
     public Money moneyInside() {
         return this.moneyInside;
+    }
+
+    public String getSlotId(short position) {
+        return slots.stream()
+                .filter(slot -> slot.position() == position)
+                .findFirst()
+                .orElseThrow(SlotNotFoundException::new)
+                .id();
+    }
+
+    public SnackPile getSnackPile(short position) {
+        return slots.stream()
+                .filter(slot -> slot.position() == position)
+                .findFirst()
+                .orElseThrow(SlotNotFoundException::new)
+                .snackPile();
+    }
+
+    public static Builder builder(String id) {
+        return new Builder(id);
+    }
+
+    public static class Builder {
+        private final String id;
+        private int smOneCentCount;
+        private int smTenCentCount;
+        private int smQuarterCentCount;
+        private int smOneDollarCount;
+        private int smFiveDollarCount;
+        private int smTwentyDollarCount;
+        private Slot slotOne;
+        private Slot slotTwo;
+        private Slot slotThree;
+
+        public Builder(String id) {
+            this.id = id;
+        }
+
+        public Builder setOneCentCount(int smOneCentCount) {
+            this.smOneCentCount = smOneCentCount;
+            return this;
+        }
+
+        public Builder setTenCentCount(int smTenCentCount) {
+            this.smTenCentCount = smTenCentCount;
+            return this;
+        }
+
+        public Builder setQuarterCentCount(int smQuarterCentCount) {
+            this.smQuarterCentCount = smQuarterCentCount;
+            return this;
+        }
+
+        public Builder setOneDollarCount(int smOneDollarCount) {
+            this.smOneDollarCount = smOneDollarCount;
+            return this;
+        }
+
+        public Builder setFiveDollarCount(int smFiveDollarCount) {
+            this.smFiveDollarCount = smFiveDollarCount;
+            return this;
+        }
+
+        public Builder setTwentyDollarCount(int smTwentyDollarCount) {
+            this.smTwentyDollarCount = smTwentyDollarCount;
+            return this;
+        }
+
+        public SnackMachine build() {
+            return new SnackMachine(this);
+        }
+
+        public Builder setSlotOne(Slot slot) {
+            this.slotOne = slot;
+            return this;
+        }
+
+        public Builder setSlotTwo(Slot slot) {
+            this.slotTwo = slot;
+            return this;
+        }
+
+        public Builder setSlotThird(Slot slot) {
+            this.slotThree = slot;
+            return this;
+        }
     }
 }
