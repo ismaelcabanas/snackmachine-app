@@ -1,0 +1,20 @@
+docker:
+  host: "${DOCKER_IP:localhost}"
+
+spring:
+  datasource:
+    url: "jdbc:postgresql://${docker.host}:${docker.port}/postgres?currentSchema=snackmachine"
+    username: postgres
+    password: 261975
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction: DEBUG
+        jdbc: TRACE
+
+flyway:
+    locations: classpath:db/migration, classpath:db/dataset
+    schemas: snackmachine
+
