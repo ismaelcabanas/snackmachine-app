@@ -1,15 +1,13 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
-import java.util.UUID;
-
-public class Slot extends Entity {
+public class Slot extends Entity<SlotId> {
 
     private final SnackMachine snackMachine;
     private final short position;
     private SnackPile snackPile;
 
     public Slot(SnackMachine snackMachine, SnackPile snackPile, short position) {
-        super(UUID.randomUUID().toString());
+        super(new SlotId());
         this.snackMachine = snackMachine;
         this.snackPile = snackPile;
         this.position = position;
@@ -42,7 +40,7 @@ public class Slot extends Entity {
         private SnackMachine snackMachine;
         private short position;
         private SnackPile snackPile;
-        private String id;
+        private SlotId id;
 
         public Builder setSnackMachine(SnackMachine snackMachine) {
             this.snackMachine = snackMachine;
@@ -63,7 +61,7 @@ public class Slot extends Entity {
             return new Slot(this);
         }
 
-        public Builder setId(String id) {
+        public Builder setId(SlotId id) {
             this.id = id;
             return this;
         }

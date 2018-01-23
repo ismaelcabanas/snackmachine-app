@@ -1,13 +1,13 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
-public abstract class Entity {
-    private String id;
+public abstract class Entity<ID> {
+    private ID id;
 
-    public String id() {
+    public ID id() {
         return id;
     }
 
-    protected Entity(String id) {
+    protected Entity(ID id) {
         this.id = id;
     }
 

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class SnackMachine extends AgreggateRoot {
+public class SnackMachine extends AgreggateRoot<SnackMachineId> {
 
     private static final List<Money> COINS_AND_NOTES = Arrays.asList(
         Money.CENT, Money.TEN_CENT, Money.QUARTER_CENT,
@@ -20,7 +20,7 @@ public class SnackMachine extends AgreggateRoot {
     private List<Slot> slots;
 
     public SnackMachine() {
-        super(UUID.randomUUID().toString());
+        super(new SnackMachineId());
         this.moneyInside = Money.none();
         this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         this.slots = new ArrayList<>();
@@ -105,7 +105,7 @@ public class SnackMachine extends AgreggateRoot {
         return this.moneyInside;
     }
 
-    public String getSlotId(short position) {
+    public SlotId getSlotId(short position) {
         return slots.stream()
                 .filter(slot -> slot.position() == position)
                 .findFirst()
@@ -121,12 +121,12 @@ public class SnackMachine extends AgreggateRoot {
                 .snackPile();
     }
 
-    public static Builder builder(String id) {
+    public static Builder builder(SnackMachineId id) {
         return new Builder(id);
     }
 
     public static class Builder {
-        private final String id;
+        private final SnackMachineId id;
         private int smOneCentCount;
         private int smTenCentCount;
         private int smQuarterCentCount;
@@ -137,7 +137,7 @@ public class SnackMachine extends AgreggateRoot {
         private Slot slotTwo;
         private Slot slotThree;
 
-        public Builder(String id) {
+        public Builder(SnackMachineId id) {
             this.id = id;
         }
 

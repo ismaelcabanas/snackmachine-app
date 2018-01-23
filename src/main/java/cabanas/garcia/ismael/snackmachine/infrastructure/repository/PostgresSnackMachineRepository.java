@@ -34,7 +34,7 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
         filterParameters.put("oneDollarCount", aggregateRoot.moneyInside().getOneDollarCount());
         filterParameters.put("fiveDollarCount", aggregateRoot.moneyInside().getFiveDollarCount());
         filterParameters.put("twentyDollarCount", aggregateRoot.moneyInside().getTwentyDollarCount());
-        filterParameters.put("snackMachineId", aggregateRoot.id());
+        filterParameters.put("snackMachineId", aggregateRoot.id().getValue());
 
         String sql = new StringBuilder()
                 .append("UPDATE ").append("SNACK_MACHINE").append(" SET ")
@@ -51,8 +51,8 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
 
         Map<String, Object> filterParametersUpdateSlot1 = new HashMap<>();
         filterParametersUpdateSlot1.put("quantity", aggregateRoot.getSnackPile(FIRST_POSITION).quantity());
-        filterParametersUpdateSlot1.put("slotId", aggregateRoot.getSlotId(FIRST_POSITION));
-        filterParametersUpdateSlot1.put("snackMachineId", aggregateRoot.id());
+        filterParametersUpdateSlot1.put("slotId", aggregateRoot.getSlotId(FIRST_POSITION).getValue());
+        filterParametersUpdateSlot1.put("snackMachineId", aggregateRoot.id().getValue());
 
         String sqlUpdateSlot1 = new StringBuilder()
                 .append("UPDATE ").append("SLOT").append(" SET ")
@@ -65,8 +65,8 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
 
         Map<String, Object> filterParametersUpdateSlot2 = new HashMap<>();
         filterParametersUpdateSlot2.put("quantity", aggregateRoot.getSnackPile(SECOND_POSITION).quantity());
-        filterParametersUpdateSlot2.put("slotId", aggregateRoot.getSlotId(SECOND_POSITION));
-        filterParametersUpdateSlot2.put("snackMachineId", aggregateRoot.id());
+        filterParametersUpdateSlot2.put("slotId", aggregateRoot.getSlotId(SECOND_POSITION).getValue());
+        filterParametersUpdateSlot2.put("snackMachineId", aggregateRoot.id().getValue());
 
         String sqlUpdateSlot2 = new StringBuilder()
                 .append("UPDATE ").append("SLOT").append(" SET ")
@@ -79,8 +79,8 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
 
         Map<String, Object> filterParametersUpdateSlot3 = new HashMap<>();
         filterParametersUpdateSlot3.put("quantity", aggregateRoot.getSnackPile(THIRD_POSITION).quantity());
-        filterParametersUpdateSlot3.put("slotId", aggregateRoot.getSlotId(THIRD_POSITION));
-        filterParametersUpdateSlot3.put("snackMachineId", aggregateRoot.id());
+        filterParametersUpdateSlot3.put("slotId", aggregateRoot.getSlotId(THIRD_POSITION).getValue());
+        filterParametersUpdateSlot3.put("snackMachineId", aggregateRoot.id().getValue());
 
         String sqlUpdateSlot3 = new StringBuilder()
                 .append("UPDATE ").append("SLOT").append(" SET ")

@@ -48,7 +48,7 @@ public class PostgresSnackMachineRepositoryShould {
             snackMachineRepository.save(sm);
         });
 
-        SnackMachine snackMachineSaved = getSnackMachineById(jdbcTemplate, snackMachine.get().id());
+        SnackMachine snackMachineSaved = getSnackMachineById(jdbcTemplate, snackMachine.get().id().getValue());
         assertThat(snackMachineSaved.moneyInside()).isEqualTo(new Money(0,0,0,1,0,0));
         assertThat(snackMachineSaved.snacksOfSlot(FIRST_POSITION)).isEqualTo(9);
         assertThat(snackMachineSaved.snacksOfSlot(SECOND_POSITION)).isEqualTo(10);

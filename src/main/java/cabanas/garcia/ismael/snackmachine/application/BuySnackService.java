@@ -17,8 +17,8 @@ public class BuySnackService {
     }
 
     public void buySnack(short position) {
-        snackMachine.buySnack(position);
         transactionService.doInTransaction(() -> {
+            snackMachine.buySnack(position);
             snackMachineRepository.save(snackMachine);
             return snackMachine;
         });

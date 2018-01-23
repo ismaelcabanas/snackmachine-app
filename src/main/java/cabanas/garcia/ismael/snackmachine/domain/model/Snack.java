@@ -1,13 +1,11 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
-import java.util.UUID;
-
-public class Snack extends AgreggateRoot {
+public class Snack extends AgreggateRoot<SnackId> {
 
     private String name;
 
     public Snack(String name) {
-        super(UUID.randomUUID().toString());
+        super(new SnackId());
         this.name = name;
     }
 
@@ -15,15 +13,15 @@ public class Snack extends AgreggateRoot {
         super(builder.id);
     }
 
-    public static Builder builder(String id) {
+    public static Builder builder(SnackId id) {
         return new Builder(id);
     }
 
     public static class Builder {
 
-        private final String id;
+        private final SnackId id;
 
-        public Builder(String id) {
+        public Builder(SnackId id) {
             this.id = id;
         }
 
