@@ -64,11 +64,11 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
             throw new NotEnoughMoneyInsertedException();
         }
 
-        slot.dropSnack();
-
         Money change = moneyInside.allocate(moneyInTransaction - snackPile.price());
         this.moneyInside.substract(change);
         this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
+        slot.dropSnack();
+
     }
 
     public double amountInTransaction() {

@@ -121,4 +121,15 @@ public class SnackMachineShould {
         assertThat(snackMachine.amountInTransaction()).isEqualTo(0);
         assertThat(snackMachine.moneyInside().amount()).isEqualTo(11.0);
     }
+
+    @Test public void
+    cannot_buy_snack_if_not_enough_change() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.loadSnacks(FIRST_POSITION, new Snack("Apple"), 10, new BigDecimal(0.5));
+        snackMachine.loadMoney(TEN_DOLLAR);
+        snackMachine.insertMoney(DOLLAR);
+        exception.expect(NoChangeException.class);
+
+        snackMachine.buySnack(FIRST_POSITION);
+    }
 }
