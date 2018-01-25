@@ -79,8 +79,8 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         return this.moneyInside.amount();
     }
 
-    public void loadSnacks(short position, Snack snack, int quantity, BigDecimal price) {
-        Slot slot = new Slot(this, new SnackPile(snack, quantity, price), position);
+    public void loadSnacks(short position, SnackPile snackPile) {
+        Slot slot = new Slot(this, snackPile, position);
         slots.add(position-1, slot);
     }
 
