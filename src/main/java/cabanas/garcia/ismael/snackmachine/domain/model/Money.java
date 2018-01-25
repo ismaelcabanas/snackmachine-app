@@ -168,20 +168,25 @@ public class Money extends ValueObject<Money> {
         int tenCentCountAllocated = Double.valueOf(Math.min(amount / 0.1, this.tenCentCount)).intValue();
         amount = amount - tenCentCountAllocated * 0.1;
         int oneCentCountAllocated = Double.valueOf(Math.min(amount / 0.01, this.oneCentCount)).intValue();
+        amount = amount - oneCentCountAllocated * 0.01;
 
-        return new Money(oneCentCountAllocated, tenCentCountAllocated, quarterCentCountAllocated,
+        Money change = new Money(oneCentCountAllocated, tenCentCountAllocated, quarterCentCountAllocated,
                 oneDollarCountAllocated, fiveDollarCountAllocated, twentyDollarCountAllocated);
+
+        if(amount != 0) {
+            throw new NoChangeException();
+        }
+
+        return change;
     }
 
     @Override
     public String toString() {
-        return "Money{" +
-                "oneCentCount=" + oneCentCount +
-                ", tenCentCount=" + tenCentCount +
-                ", quarterCentCount=" + quarterCentCount +
-                ", oneDollarCount=" + oneDollarCount +
-                ", fiveDollarCount=" + fiveDollarCount +
-                ", twentyDollarCount=" + twentyDollarCount +
-                '}';
+        double amount = amount();
+        if(amount < 1) {
+            return String.format("¢%d", Double.valueOf(amount * 100).intValue());
+        }
+
+        return String.format("$%.2f", amount);
     }
 }

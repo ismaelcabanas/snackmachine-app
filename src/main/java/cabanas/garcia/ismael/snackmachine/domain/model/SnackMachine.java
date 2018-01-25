@@ -54,10 +54,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
     }
 
     public void buySnack(short position) {
-        Slot slot = slots.stream()
-                .filter(s -> s.position() == position)
-                .findFirst()
-                .orElseThrow(SlotNotFoundException::new);
+        Slot slot = getSlot(position);
 
         SnackPile snackPile = slot.snackPile();
         if(snackPile.quantity() == 0) {
@@ -67,8 +64,11 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
             throw new NotEnoughMoneyInsertedException();
         }
 
-        this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         slot.dropSnack();
+
+        Money change = moneyInside.allocate(moneyInTransaction - snackPile.price());
+        this.moneyInside.substract(change);
+        this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
     }
 
     public double amountInTransaction() {
@@ -79,7 +79,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         return this.moneyInside.amount();
     }
 
-    public void addSnacks(short position, Snack snack, int quantity, BigDecimal price) {
+    public void loadSnacks(short position, Snack snack, int quantity, BigDecimal price) {
         Slot slot = new Slot(this, new SnackPile(snack, quantity, price), position);
         slots.add(position-1, slot);
     }
@@ -94,10 +94,6 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
     }
 
     public void loadMoney(Money money) {
-        if (!COINS_AND_NOTES.contains(money)) {
-            throw new BadMoneyException();
-        }
-
         this.moneyInside.add(money);
     }
 
@@ -106,19 +102,20 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
     }
 
     public SlotId getSlotId(short position) {
-        return slots.stream()
-                .filter(slot -> slot.position() == position)
-                .findFirst()
-                .orElseThrow(SlotNotFoundException::new)
+        return getSlot(position)
                 .id();
     }
 
     public SnackPile getSnackPile(short position) {
-        return slots.stream()
-                .filter(slot -> slot.position() == position)
-                .findFirst()
-                .orElseThrow(SlotNotFoundException::new)
+        return getSlot(position)
                 .snackPile();
+    }
+
+    private Slot getSlot(short position) {
+        return slots.stream()
+                .filter(s -> s.position() == position)
+                .findFirst()
+                .orElseThrow(SlotNotFoundException::new);
     }
 
     public static Builder builder(SnackMachineId id) {

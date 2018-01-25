@@ -12,6 +12,8 @@ public class SnackMachineShould {
 
     private static final Money DOLLAR = new Money(0, 0, 0, 1, 0, 0);
     private static final Money QUARTER_DOLLAR = new Money(0, 0, 1, 0, 0, 0);
+    private static final Money TEN_DOLLAR = new Money(0, 0, 0, 10, 0, 0);
+    private static final Money TEN_CENT = new Money(10, 0, 0, 0, 0, 0);
 
     private static final short FIRST_POSITION = 1;
 
@@ -49,7 +51,7 @@ public class SnackMachineShould {
     @Test public void
     buySnack_update_money_inside() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(1));
+        snackMachine.loadSnacks(FIRST_POSITION, new Snack("Apple"), 10, new BigDecimal(1));
         snackMachine.insertMoney(DOLLAR);
         snackMachine.buySnack(FIRST_POSITION);
         snackMachine.insertMoney(DOLLAR);
@@ -63,7 +65,7 @@ public class SnackMachineShould {
     @Test public void
     buySnack_trades_inserted_money_for_a_snack() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(1));
+        snackMachine.loadSnacks(FIRST_POSITION, new Snack("Apple"), 10, new BigDecimal(1));
         snackMachine.insertMoney(DOLLAR);
 
         snackMachine.buySnack(FIRST_POSITION);
@@ -72,7 +74,7 @@ public class SnackMachineShould {
     }
 
     @Test public void
-    cannot_buy_snack_if_slot_is_empty() {
+    cannot_buy_when_not_exist_snacks() {
         SnackMachine snackMachine = new SnackMachine();
         snackMachine.insertMoney(DOLLAR);
         exception.expect(SnackNotFoundException.class);
@@ -81,9 +83,9 @@ public class SnackMachineShould {
     }
 
     @Test public void
-    cannot_buy_snack_if_not_enough_money_inserted() {
+    cannot_buy_if_not_enough_money_inserted() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.addSnacks(Integer.valueOf(1).shortValue(), new Snack("Apple"), 10, new BigDecimal(2));
+        snackMachine.loadSnacks(FIRST_POSITION, new Snack("Apple"), 10, new BigDecimal(2));
         snackMachine.insertMoney(DOLLAR);
         exception.expect(NotEnoughMoneyInsertedException.class);
 
@@ -103,5 +105,20 @@ public class SnackMachineShould {
 
         assertThat(snackMachine.moneyInside().quarterCount()).isEqualTo(4);
         assertThat(snackMachine.moneyInside().dollarCount()).isEqualTo(0);
+    }
+
+    @Test public void
+    after_purchase_change_is_returned() {
+        SnackMachine snackMachine = new SnackMachine();
+        snackMachine.loadSnacks(FIRST_POSITION, new Snack("Apple"), 10, new BigDecimal(0.5));
+        snackMachine.loadMoney(TEN_DOLLAR);
+        snackMachine.loadMoney(QUARTER_DOLLAR);
+        snackMachine.loadMoney(QUARTER_DOLLAR);
+        snackMachine.insertMoney(DOLLAR);
+
+        snackMachine.buySnack(FIRST_POSITION);
+
+        assertThat(snackMachine.amountInTransaction()).isEqualTo(0);
+        assertThat(snackMachine.moneyInside().amount()).isEqualTo(11.0);
     }
 }

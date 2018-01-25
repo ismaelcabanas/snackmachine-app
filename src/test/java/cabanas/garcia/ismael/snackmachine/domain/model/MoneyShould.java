@@ -16,7 +16,7 @@ public class MoneyShould {
     public ExpectedException exception = ExpectedException.none();
 
     @Test public void
-    sum_two_moneys() {
+    sum_of_two_moneys_produces_correct_result() {
         Money moneyOne = new Money(1, 2, 3, 4, 5,
                  6);
         Money moneyTwo = new Money(1, 2, 3, 4, 5,
@@ -33,7 +33,7 @@ public class MoneyShould {
     }
 
     @Test public void
-    two_instances_of_money_are_equal_if_contains_same_money_account() {
+    two_instances_of_money_are_equal_if_contains_same_money_amounts() {
         Money moneyOne = new Money(1, 2, 3, 4, 5,
                 6);
         Money moneyTwo = new Money(1, 2, 3, 4, 5,
@@ -45,7 +45,7 @@ public class MoneyShould {
     }
 
     @Test public void
-    two_instances_of_money_are_not_equal_if_not_contains_same_money_account() {
+    two_instances_of_money_are_not_equal_if_not_contains_same_money_amounts() {
         Money moneyOne = new Money(1, 2, 3, 4, 5,
                 6);
         Money moneyTwo = new Money(2, 2, 3, 4, 5,
@@ -90,5 +90,27 @@ public class MoneyShould {
         double amount = money.amount();
 
         assertThat(amount).isEqualTo(expectedAmount);
+    }
+
+    @Test
+    @Parameters({
+            "1, 0, 0, 0, 0, 0, ¢1",
+            "0, 0, 0, 1, 0, 0, $1.00",
+            "1, 0, 0, 1, 0, 0, $1.01",
+            "0, 0, 2, 1, 0, 0, $1.50"
+    }) public void
+    toString_returns_correct_string_representation(int oneCentCount, int tenCentCount, int quarterCentCount, int oneDollarCount,
+                                                   int fiveDollarCount, int twentyDollarCount, String expectedString) {
+        Money money = new Money(
+                oneCentCount,
+                tenCentCount,
+                quarterCentCount,
+                oneDollarCount,
+                fiveDollarCount,
+                twentyDollarCount);
+
+        String actual = money.toString();
+
+        assertThat(actual).isEqualTo(expectedString);
     }
 }
