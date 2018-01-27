@@ -44,7 +44,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
             throw new BadMoneyException();
         }
         this.moneyInTransaction += money.amount();
-        this.moneyInside.add(money);
+        this.moneyInside = this.moneyInside.add(money);
     }
 
     public void returnMoney() {
@@ -65,7 +65,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         }
 
         Money change = moneyInside.allocate(moneyInTransaction - snackPile.price());
-        this.moneyInside.substract(change);
+        this.moneyInside = this.moneyInside.substract(change);
         this.moneyInTransaction = BigDecimal.ZERO.doubleValue();
         slot.dropSnack();
 
@@ -94,7 +94,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
     }
 
     public void loadMoney(Money money) {
-        this.moneyInside.add(money);
+        this.moneyInside = this.moneyInside.add(money);
     }
 
     public Money moneyInside() {
