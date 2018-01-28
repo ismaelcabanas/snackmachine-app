@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.function.Supplier;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
@@ -24,7 +26,7 @@ public class BuySnackServiceShould {
 
     @Mock private SnackMachineRepository snackMachineRepository;
 
-    @Mock private TransactionService transactionService;
+    private TransactionService transactionService = Supplier::get;
 
     @Test
     public void buy_a_snack() {
@@ -32,8 +34,7 @@ public class BuySnackServiceShould {
 
         buySnackService.buySnack(FIRST_POSITION);
 
-        //verify(snackMachine, times(1)).buySnack(FIRST_POSITION);
-        //verify(snackMachineRepository, times(1)).save(any());
-        verify(transactionService, times(1)).doInTransaction(any());
+        verify(snackMachine, times(1)).buySnack(FIRST_POSITION);
+        verify(snackMachineRepository, times(1)).save(any());
     }
 }
