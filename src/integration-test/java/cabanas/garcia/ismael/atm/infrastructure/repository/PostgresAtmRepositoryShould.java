@@ -43,12 +43,12 @@ public class PostgresAtmRepositoryShould {
             atmRepository.save(atmM);
         });
 
-        Atm atmSaved = getAtmById(jdbcTemplate, atm.get().id().getValue());
+        Atm atmSaved = getAtmById(atm.get().id().getValue());
         assertThat(atmSaved.moneyInside()).isEqualTo(DOLLAR);
         assertThat(atmSaved.moneyCharged()).isEqualTo(1.01);
     }
 
-    private Atm getAtmById(JdbcTemplate jdbcTemplate, String id) {
+    private Atm getAtmById(String id) {
         return jdbcTemplate.queryForObject("SELECT * FROM ATM_MACHINE WHERE AM_ID = ? ",
                 atmRowMapper, id);
     }

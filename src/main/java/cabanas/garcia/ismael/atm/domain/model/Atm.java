@@ -2,7 +2,6 @@ package cabanas.garcia.ismael.atm.domain.model;
 
 import cabanas.garcia.ismael.snackmachine.domain.model.AgreggateRoot;
 import cabanas.garcia.ismael.snackmachine.domain.model.Money;
-import cabanas.garcia.ismael.snackmachine.domain.model.SnackMachine;
 
 import java.math.BigDecimal;
 
@@ -56,7 +55,7 @@ public class Atm extends AgreggateRoot<AtmId> {
     private double caluculateAmountWithCommission(double amount) {
         double comission = amount * COMISSION_RATE;
         double lessThanCent = comission % 0.01;
-        if(lessThanCent > 0) {
+        if (lessThanCent > 0) {
             comission = comission - lessThanCent + 0.01;
         }
 
@@ -82,8 +81,8 @@ public class Atm extends AgreggateRoot<AtmId> {
             this.atmId = atmId;
         }
 
-        public Builder setMoneyCharged(double amountCharged) {
-            this.amountCharged = amountCharged;
+        public Builder setMoneyCharged(double theAmountCharged) {
+            this.amountCharged = theAmountCharged;
             return this;
         }
 

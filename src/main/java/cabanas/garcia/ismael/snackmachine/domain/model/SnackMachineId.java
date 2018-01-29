@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.UUID;
 
-public class SnackMachineId extends ValueObject<SnackMachineId>{
+public class SnackMachineId extends ValueObject<SnackMachineId> {
 
     private final String value;
 

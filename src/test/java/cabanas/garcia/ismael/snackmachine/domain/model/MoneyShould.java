@@ -98,7 +98,7 @@ public class MoneyShould {
             "0, 0, 0, 1, 0, 0, $1.00",
             "1, 0, 0, 1, 0, 0, $1.01",
             "0, 0, 2, 1, 0, 0, $1.50"
-    }) public void
+        }) public void
     toString_returns_correct_string_representation(int oneCentCount, int tenCentCount, int quarterCentCount, int oneDollarCount,
                                                    int fiveDollarCount, int twentyDollarCount, String expectedString) {
         Money money = new Money(

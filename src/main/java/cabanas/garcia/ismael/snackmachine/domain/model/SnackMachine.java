@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 public class SnackMachine extends AgreggateRoot<SnackMachineId> {
 
@@ -57,10 +56,10 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         Slot slot = getSlot(position);
 
         SnackPile snackPile = slot.snackPile();
-        if(snackPile.quantity() == 0) {
+        if (snackPile.quantity() == 0) {
             throw new SnackNotFoundException();
         }
-        if(this.moneyInTransaction < snackPile.price()) {
+        if (this.moneyInTransaction < snackPile.price()) {
             throw new NotEnoughMoneyInsertedException();
         }
 
@@ -81,7 +80,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
 
     public void loadSnacks(short position, SnackPile snackPile) {
         Slot slot = new Slot(this, snackPile, position);
-        slots.add(position-1, slot);
+        slots.add(position - 1, slot);
     }
 
     public int snacksOfSlot(int position) {
@@ -138,33 +137,33 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
             this.id = id;
         }
 
-        public Builder setOneCentCount(int smOneCentCount) {
-            this.smOneCentCount = smOneCentCount;
+        public Builder setOneCentCount(int oneCentCount) {
+            this.smOneCentCount = oneCentCount;
             return this;
         }
 
-        public Builder setTenCentCount(int smTenCentCount) {
-            this.smTenCentCount = smTenCentCount;
+        public Builder setTenCentCount(int tenCentCount) {
+            this.smTenCentCount = tenCentCount;
             return this;
         }
 
-        public Builder setQuarterCentCount(int smQuarterCentCount) {
-            this.smQuarterCentCount = smQuarterCentCount;
+        public Builder setQuarterCentCount(int quarterCentCount) {
+            this.smQuarterCentCount = quarterCentCount;
             return this;
         }
 
-        public Builder setOneDollarCount(int smOneDollarCount) {
-            this.smOneDollarCount = smOneDollarCount;
+        public Builder setOneDollarCount(int oneDollarCount) {
+            this.smOneDollarCount = oneDollarCount;
             return this;
         }
 
-        public Builder setFiveDollarCount(int smFiveDollarCount) {
-            this.smFiveDollarCount = smFiveDollarCount;
+        public Builder setFiveDollarCount(int fiveDollarCount) {
+            this.smFiveDollarCount = fiveDollarCount;
             return this;
         }
 
-        public Builder setTwentyDollarCount(int smTwentyDollarCount) {
-            this.smTwentyDollarCount = smTwentyDollarCount;
+        public Builder setTwentyDollarCount(int twentyDollarCount) {
+            this.smTwentyDollarCount = twentyDollarCount;
             return this;
         }
 

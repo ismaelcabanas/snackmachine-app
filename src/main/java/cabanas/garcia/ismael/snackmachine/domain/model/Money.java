@@ -178,7 +178,7 @@ public class Money extends ValueObject<Money> {
         int oneCentCountAllocated = theAmount.divide(ZERO_POINT_ZERO_ONE).min(new BigDecimal(this.oneCentCount)).intValue();
         theAmount = theAmount.subtract(new BigDecimal(oneCentCountAllocated).multiply(ZERO_POINT_ZERO_ONE));
 
-        if(theAmount.doubleValue() != 0) {
+        if (theAmount.doubleValue() != 0) {
             throw new NoChangeException();
         }
 
@@ -191,7 +191,7 @@ public class Money extends ValueObject<Money> {
     @Override
     public String toString() {
         double amount = amount();
-        if(amount < 1) {
+        if (amount < 1) {
             return String.format("¢%d", Double.valueOf(amount * 100).intValue());
         }
 

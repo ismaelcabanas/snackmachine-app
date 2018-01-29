@@ -1,14 +1,11 @@
 package cabanas.garcia.ismael.snackmachine.infrastructure.repository;
 
-import cabanas.garcia.ismael.snackmachine.domain.model.Money;
 import cabanas.garcia.ismael.snackmachine.domain.model.SnackMachine;
 import cabanas.garcia.ismael.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.snackmachine.infrastructure.framework.Application;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
@@ -49,14 +46,14 @@ public class PostgresSnackMachineRepositoryShould {
             snackMachineRepository.save(sm);
         });
 
-        SnackMachine snackMachineSaved = getSnackMachineById(jdbcTemplate, snackMachine.get().id().getValue());
+        SnackMachine snackMachineSaved = getSnackMachineById(snackMachine.get().id().getValue());
         assertThat(snackMachineSaved.moneyInside()).isEqualTo(DOLLAR);
         assertThat(snackMachineSaved.snacksOfSlot(FIRST_POSITION)).isEqualTo(9);
         assertThat(snackMachineSaved.snacksOfSlot(SECOND_POSITION)).isEqualTo(10);
         assertThat(snackMachineSaved.snacksOfSlot(THIRD_POSITION)).isEqualTo(10);
     }
 
-    private SnackMachine getSnackMachineById(JdbcTemplate jdbcTemplate, String id) {
+    private SnackMachine getSnackMachineById(String id) {
         return jdbcTemplate.queryForObject("SELECT * FROM SNACK_MACHINE INNER JOIN SLOT ON SM_ID=SL_SNACK_MACHINE_ID WHERE SM_ID = ? ",
                 snackMachineRowMapper, id);
     }

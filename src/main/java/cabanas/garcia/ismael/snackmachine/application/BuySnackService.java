@@ -10,7 +10,8 @@ public class BuySnackService {
     private final SnackMachineRepository snackMachineRepository;
     private final TransactionService transactionService;
 
-    public BuySnackService(SnackMachine snackMachine, SnackMachineRepository snackMachineRepository, TransactionService transactionService) {
+    public BuySnackService(SnackMachine snackMachine, SnackMachineRepository snackMachineRepository,
+                           TransactionService transactionService) {
         this.snackMachine = snackMachine;
         this.snackMachineRepository = snackMachineRepository;
         this.transactionService = transactionService;

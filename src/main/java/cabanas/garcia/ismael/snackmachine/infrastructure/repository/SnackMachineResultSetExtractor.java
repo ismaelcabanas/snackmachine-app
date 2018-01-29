@@ -1,6 +1,12 @@
 package cabanas.garcia.ismael.snackmachine.infrastructure.repository;
 
-import cabanas.garcia.ismael.snackmachine.domain.model.*;
+import cabanas.garcia.ismael.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.snackmachine.domain.model.SnackMachineId;
+import cabanas.garcia.ismael.snackmachine.domain.model.Slot;
+import cabanas.garcia.ismael.snackmachine.domain.model.SlotId;
+import cabanas.garcia.ismael.snackmachine.domain.model.SnackPile;
+import cabanas.garcia.ismael.snackmachine.domain.model.Snack;
+import cabanas.garcia.ismael.snackmachine.domain.model.SnackId;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 

@@ -6,12 +6,9 @@ import cabanas.garcia.ismael.snackmachine.domain.repository.SnackMachineReposito
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
-import java.io.Serializable;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine> implements SnackMachineRepository {
 
@@ -100,7 +97,8 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
 
         String sql = new StringBuilder()
                 .append("SELECT ").append("SM_ID, SM_ONE_CENT_COUNT, SM_TEN_CENT_COUNT, SM_QUARTER_CENT_COUNT, ")
-                .append("SM_ONE_DOLLAR_COUNT, SM_FIVE_DOLLAR_COUNT, SM_TWENTY_DOLLAR_COUNT, SL_ID, SL_QUANTITY, SL_POSITION, SL_PRICE, SL_SNACK_ID ")
+                .append("SM_ONE_DOLLAR_COUNT, SM_FIVE_DOLLAR_COUNT, SM_TWENTY_DOLLAR_COUNT, SL_ID, SL_QUANTITY, ")
+                .append("SL_POSITION, SL_PRICE, SL_SNACK_ID ")
                 .append("FROM ").append("SNACK_MACHINE ")
                 .append("INNER JOIN ").append("SLOT ")
                 .append("ON SL_SNACK_MACHINE_ID=SM_ID ")
