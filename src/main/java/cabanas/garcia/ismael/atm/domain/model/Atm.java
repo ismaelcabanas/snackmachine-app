@@ -25,7 +25,7 @@ public class Atm extends AgreggateRoot<AtmId> {
         this.moneyInside = moneyInside.add(money);
     }
 
-    public void withDraw(double amount) {
+    public void withdraw(double amount) {
         Money output = this.moneyInside.allocate(amount);
         this.moneyInside = this.moneyInside.substract(output);
 

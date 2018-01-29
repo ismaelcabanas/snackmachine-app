@@ -15,7 +15,7 @@ public class AtmShould {
         Atm atm = new Atm();
         atm.loadMoney(DOLLAR);
 
-        atm.withDraw(1);
+        atm.withdraw(1);
 
         assertThat(atm.moneyInside().amount()).isEqualTo(0);
         assertThat(atm.moneyCharged()).isEqualTo(1.01);
@@ -26,7 +26,7 @@ public class AtmShould {
         Atm atm = new Atm();
         atm.loadMoney(CENT);
 
-        atm.withDraw(0.01);
+        atm.withdraw(0.01);
 
         assertThat(atm.moneyCharged()).isEqualTo(0.02);
     }
@@ -37,7 +37,7 @@ public class AtmShould {
         Money oneDollarAndTenCents = DOLLAR.add(TEN_CENT);
         atm.loadMoney(oneDollarAndTenCents);
 
-        atm.withDraw(1.1);
+        atm.withdraw(1.1);
 
         assertThat(atm.moneyCharged()).isEqualTo(1.12);
     }
