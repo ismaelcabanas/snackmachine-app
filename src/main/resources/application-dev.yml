@@ -3,9 +3,9 @@ docker:
 
 spring:
   datasource:
-    url: "jdbc:postgresql://${docker.host}:${docker.port}/postgres?currentSchema=snackmachine"
+    url: "jdbc:postgresql://192.168.99.100:5432/postgres?currentSchema=snackmachine"
     username: postgres
-    password: 261975
+    password: postgres
 
 logging:
   level:
@@ -17,4 +17,5 @@ logging:
 flyway:
     locations: classpath:db/migration, classpath:db/dataset
     schemas: snackmachine
+
 

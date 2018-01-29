@@ -17,11 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static cabanas.garcia.ismael.snackmachine.domain.model.Money.DOLLAR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-@ActiveProfiles("integration-test")
+@ActiveProfiles("dev")
 public class PostgresSnackMachineRepositoryShould {
 
     private static final short FIRST_POSITION = 1;
@@ -43,13 +44,13 @@ public class PostgresSnackMachineRepositoryShould {
         Optional<SnackMachine> snackMachine = snackMachineRepository.getById("1");
 
         snackMachine.ifPresent(sm -> {
-            sm.insertMoney(new Money(0, 0, 0, 1, 0, 0));
+            sm.insertMoney(DOLLAR);
             sm.buySnack(FIRST_POSITION);
             snackMachineRepository.save(sm);
         });
 
         SnackMachine snackMachineSaved = getSnackMachineById(jdbcTemplate, snackMachine.get().id().getValue());
-        assertThat(snackMachineSaved.moneyInside()).isEqualTo(new Money(0,0,0,1,0,0));
+        assertThat(snackMachineSaved.moneyInside()).isEqualTo(DOLLAR);
         assertThat(snackMachineSaved.snacksOfSlot(FIRST_POSITION)).isEqualTo(9);
         assertThat(snackMachineSaved.snacksOfSlot(SECOND_POSITION)).isEqualTo(10);
         assertThat(snackMachineSaved.snacksOfSlot(THIRD_POSITION)).isEqualTo(10);

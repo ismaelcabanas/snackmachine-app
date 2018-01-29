@@ -5,7 +5,7 @@ spring:
   datasource:
     url: "jdbc:postgresql://${docker.host}:${docker.port}/postgres?currentSchema=snackmachine"
     username: postgres
-    password: 261975
+    password: postgres
 
 
 logging:
