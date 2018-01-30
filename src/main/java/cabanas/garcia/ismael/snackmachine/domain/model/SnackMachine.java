@@ -1,5 +1,7 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
+import cabanas.garcia.ismael.shared.domain.model.Money;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;

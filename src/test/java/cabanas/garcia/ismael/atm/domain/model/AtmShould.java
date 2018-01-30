@@ -1,11 +1,11 @@
 package cabanas.garcia.ismael.atm.domain.model;
 
-import cabanas.garcia.ismael.snackmachine.domain.model.Money;
+import cabanas.garcia.ismael.shared.domain.model.Money;
 import org.junit.Test;
 
-import static cabanas.garcia.ismael.snackmachine.domain.model.Money.CENT;
-import static cabanas.garcia.ismael.snackmachine.domain.model.Money.DOLLAR;
-import static cabanas.garcia.ismael.snackmachine.domain.model.Money.TEN_CENT;
+import static cabanas.garcia.ismael.shared.domain.model.Money.CENT;
+import static cabanas.garcia.ismael.shared.domain.model.Money.DOLLAR;
+import static cabanas.garcia.ismael.shared.domain.model.Money.TEN_CENT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AtmShould {

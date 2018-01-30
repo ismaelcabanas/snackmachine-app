@@ -1,7 +1,7 @@
 package cabanas.garcia.ismael.atm.domain.model;
 
 import cabanas.garcia.ismael.snackmachine.domain.model.AgreggateRoot;
-import cabanas.garcia.ismael.snackmachine.domain.model.Money;
+import cabanas.garcia.ismael.shared.domain.model.Money;
 
 import java.math.BigDecimal;
 

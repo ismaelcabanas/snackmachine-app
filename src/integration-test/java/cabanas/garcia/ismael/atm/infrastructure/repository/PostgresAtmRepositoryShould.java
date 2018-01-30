@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static cabanas.garcia.ismael.snackmachine.domain.model.Money.DOLLAR;
+import static cabanas.garcia.ismael.shared.domain.model.Money.DOLLAR;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)

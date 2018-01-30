@@ -1,5 +1,6 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
+import cabanas.garcia.ismael.shared.domain.model.Money;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Rule;
