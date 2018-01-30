@@ -164,7 +164,7 @@ public class Money extends ValueObject<Money> {
     }
 
     public Money allocate(double amount) {
-        BigDecimal theAmount = new BigDecimal(amount).setScale(2, RoundingMode.FLOOR);
+        BigDecimal theAmount = new BigDecimal(Double.valueOf(amount).toString()).setScale(2, RoundingMode.FLOOR);
         int twentyDollarCountAllocated = theAmount.divide(TWENTY).min(new BigDecimal(this.twentyDollarCount)).intValue();
         theAmount = theAmount.subtract(new BigDecimal(twentyDollarCountAllocated).multiply(TWENTY));
         int fiveDollarCountAllocated = theAmount.divide(FIVE).min(new BigDecimal(this.fiveDollarCount)).intValue();

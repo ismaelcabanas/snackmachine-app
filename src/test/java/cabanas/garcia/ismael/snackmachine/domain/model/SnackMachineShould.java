@@ -13,9 +13,9 @@ public class SnackMachineShould {
     private static final Money DOLLAR = new Money(0, 0, 0, 1, 0, 0);
     private static final Money QUARTER_DOLLAR = new Money(0, 0, 1, 0, 0, 0);
     private static final Money TEN_DOLLAR = new Money(0, 0, 0, 10, 0, 0);
-    private static final Money TEN_CENT = new Money(10, 0, 0, 0, 0, 0);
 
     private static final short FIRST_POSITION = 1;
+    public static final String APPLE_NAME = "Apple";
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -51,7 +51,7 @@ public class SnackMachineShould {
     @Test public void
     buySnack_update_money_inside() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack("Apple"), 10, new BigDecimal(1)));
+        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack(APPLE_NAME), 10, BigDecimal.ONE));
         snackMachine.insertMoney(DOLLAR);
         snackMachine.buySnack(FIRST_POSITION);
         snackMachine.insertMoney(DOLLAR);
@@ -65,7 +65,7 @@ public class SnackMachineShould {
     @Test public void
     buySnack_trades_inserted_money_for_a_snack() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack("Apple"), 10, new BigDecimal(1)));
+        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack(APPLE_NAME), 10, BigDecimal.ONE));
         snackMachine.insertMoney(DOLLAR);
 
         snackMachine.buySnack(FIRST_POSITION);
@@ -85,7 +85,7 @@ public class SnackMachineShould {
     @Test public void
     cannot_buy_if_not_enough_money_inserted() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack("Apple"), 10, new BigDecimal(2)));
+        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack(APPLE_NAME), 10, new BigDecimal(2)));
         snackMachine.insertMoney(DOLLAR);
         exception.expect(NotEnoughMoneyInsertedException.class);
 
@@ -110,7 +110,7 @@ public class SnackMachineShould {
     @Test public void
     after_purchase_change_is_returned() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack("Apple"), 10, new BigDecimal(0.5)));
+        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack(APPLE_NAME), 10, new BigDecimal("0.5")));
         snackMachine.loadMoney(TEN_DOLLAR);
         snackMachine.loadMoney(QUARTER_DOLLAR);
         snackMachine.loadMoney(QUARTER_DOLLAR);
@@ -125,7 +125,7 @@ public class SnackMachineShould {
     @Test public void
     cannot_buy_snack_if_not_enough_change() {
         SnackMachine snackMachine = new SnackMachine();
-        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack("Apple"), 10, new BigDecimal(0.5)));
+        snackMachine.loadSnacks(FIRST_POSITION, new SnackPile(new Snack(APPLE_NAME), 10, new BigDecimal("0.5")));
         snackMachine.loadMoney(TEN_DOLLAR);
         snackMachine.insertMoney(DOLLAR);
         exception.expect(NoChangeException.class);

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class PostgresAtmRepository extends BaseRepository<Atm> implements AtmRepository {
 
+    private static final String ATM_ID = "atmId";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final AtmRowMapper atmRowMapper;
 
@@ -31,18 +32,19 @@ public class PostgresAtmRepository extends BaseRepository<Atm> implements AtmRep
         filterParameters.put("oneDollarCount", aggregateRoot.moneyInside().getOneDollarCount());
         filterParameters.put("fiveDollarCount", aggregateRoot.moneyInside().getFiveDollarCount());
         filterParameters.put("twentyDollarCount", aggregateRoot.moneyInside().getTwentyDollarCount());
-        filterParameters.put("atmId", aggregateRoot.id().getValue());
+        filterParameters.put(ATM_ID, aggregateRoot.id().getValue());
 
         String sql = new StringBuilder()
                 .append("UPDATE ").append("ATM_MACHINE").append(" SET ")
                 .append("AM_AMOUNT_CHARGED = :").append("amountCharged").append(", ")
                 .append("AM_ONE_CENT_COUNT = :").append("oneCentCount").append(", ")
                 .append("AM_TEN_CENT_COUNT = :").append("tenCentCount").append(", ")
-                .append("AM_QUARTER_CENT_COUNT = :").append("quarterCentCount").append(", ")
+                .append("AM_QUARTER_CENT_COUNT = :").
+                        append("quarterCentCount").append(", ")
                 .append("AM_ONE_DOLLAR_COUNT = :").append("oneDollarCount").append(", ")
                 .append("AM_FIVE_DOLLAR_COUNT = :").append("fiveDollarCount").append(", ")
                 .append("AM_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(" ")
-                .append("WHERE ").append("AM_ID = :").append("atmId")
+                .append("WHERE ").append("AM_ID = :").append(ATM_ID)
                 .toString();
 
         jdbcTemplate.update(sql, filterParameters);
@@ -52,13 +54,13 @@ public class PostgresAtmRepository extends BaseRepository<Atm> implements AtmRep
     @Override
     public Optional<Atm> findById(AtmId atmId) {
         Map<String, Object> filterParameters = new HashMap<>();
-        filterParameters.put("atmId", atmId.getValue());
+        filterParameters.put(ATM_ID, atmId.getValue());
 
         String sql = new StringBuilder()
                 .append("SELECT ").append("AM_ID, AM_AMOUNT_CHARGED, AM_ONE_CENT_COUNT, AM_TEN_CENT_COUNT, AM_QUARTER_CENT_COUNT, ")
                 .append("AM_ONE_DOLLAR_COUNT, AM_FIVE_DOLLAR_COUNT, AM_TWENTY_DOLLAR_COUNT ")
                 .append("FROM ").append("ATM_MACHINE ")
-                .append("WHERE ").append("AM_ID = :").append("atmId").append(" ")
+                .append("WHERE ").append("AM_ID = :").append(ATM_ID).append(" ")
                 .append("ORDER BY AM_ID")
                 .toString();
 

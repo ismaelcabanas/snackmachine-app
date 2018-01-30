@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.snackmachine.domain.model;
 
 public class Snack extends AgreggateRoot<SnackId> {
 
+    @SuppressWarnings("PMD")
     private String name;
 
     public Snack(String name) {

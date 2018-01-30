@@ -15,6 +15,12 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
     private static final short FIRST_POSITION = 1;
     private static final short SECOND_POSITION = 2;
     private static final short THIRD_POSITION = 3;
+    private static final String SNACK_MACHINE_ID = "snackMachineId";
+    public static final String SET_CLAUSE = " SET ";
+    public static final String UPDATE_CLAUSE = "UPDATE ";
+    public static final String WHERE_CLAUSE = "WHERE ";
+    public static final String QUANTITY_FIELD = "quantity";
+    public static final String SLOT_ID_FIELD = "slotId";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final SnackMachineRowMapper snackMachineRowMapper;
 
@@ -31,59 +37,59 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
         filterParameters.put("oneDollarCount", aggregateRoot.moneyInside().getOneDollarCount());
         filterParameters.put("fiveDollarCount", aggregateRoot.moneyInside().getFiveDollarCount());
         filterParameters.put("twentyDollarCount", aggregateRoot.moneyInside().getTwentyDollarCount());
-        filterParameters.put("snackMachineId", aggregateRoot.id().getValue());
+        filterParameters.put(SNACK_MACHINE_ID, aggregateRoot.id().getValue());
 
         String sql = new StringBuilder()
-                .append("UPDATE ").append("SNACK_MACHINE").append(" SET ")
+                .append(UPDATE_CLAUSE).append("SNACK_MACHINE").append(SET_CLAUSE)
                 .append("SM_ONE_CENT_COUNT = :").append("oneCentCount").append(", ")
                 .append("SM_TEN_CENT_COUNT = :").append("tenCentCount").append(", ")
                 .append("SM_QUARTER_CENT_COUNT = :").append("quarterCentCount").append(", ")
                 .append("SM_ONE_DOLLAR_COUNT = :").append("oneDollarCount").append(", ")
                 .append("SM_FIVE_DOLLAR_COUNT = :").append("fiveDollarCount").append(", ")
                 .append("SM_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(" ")
-                .append("WHERE ").append("SM_ID = :").append("snackMachineId")
+                .append(WHERE_CLAUSE).append("SM_ID = :").append(SNACK_MACHINE_ID)
                 .toString();
 
         jdbcTemplate.update(sql, filterParameters);
 
         Map<String, Object> filterParametersUpdateSlot1 = new HashMap<>();
-        filterParametersUpdateSlot1.put("quantity", aggregateRoot.getSnackPile(FIRST_POSITION).quantity());
-        filterParametersUpdateSlot1.put("slotId", aggregateRoot.getSlotId(FIRST_POSITION).getValue());
-        filterParametersUpdateSlot1.put("snackMachineId", aggregateRoot.id().getValue());
+        filterParametersUpdateSlot1.put(QUANTITY_FIELD, aggregateRoot.getSnackPile(FIRST_POSITION).quantity());
+        filterParametersUpdateSlot1.put(SLOT_ID_FIELD, aggregateRoot.getSlotId(FIRST_POSITION).getValue());
+        filterParametersUpdateSlot1.put(SNACK_MACHINE_ID, aggregateRoot.id().getValue());
 
         String sqlUpdateSlot1 = new StringBuilder()
-                .append("UPDATE ").append("SLOT").append(" SET ")
-                .append("SL_QUANTITY = :").append("quantity").append(" ")
-                .append("WHERE ").append("SL_ID = :").append("slotId").append(" ")
-                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append("snackMachineId")
+                .append(UPDATE_CLAUSE).append("SLOT").append(SET_CLAUSE)
+                .append("SL_QUANTITY = :").append(QUANTITY_FIELD).append(" ")
+                .append(WHERE_CLAUSE).append("SL_ID = :").append(SLOT_ID_FIELD).append(" ")
+                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append(SNACK_MACHINE_ID)
                 .toString();
 
         jdbcTemplate.update(sqlUpdateSlot1, filterParametersUpdateSlot1);
 
         Map<String, Object> filterParametersUpdateSlot2 = new HashMap<>();
-        filterParametersUpdateSlot2.put("quantity", aggregateRoot.getSnackPile(SECOND_POSITION).quantity());
-        filterParametersUpdateSlot2.put("slotId", aggregateRoot.getSlotId(SECOND_POSITION).getValue());
-        filterParametersUpdateSlot2.put("snackMachineId", aggregateRoot.id().getValue());
+        filterParametersUpdateSlot2.put(QUANTITY_FIELD, aggregateRoot.getSnackPile(SECOND_POSITION).quantity());
+        filterParametersUpdateSlot2.put(SLOT_ID_FIELD, aggregateRoot.getSlotId(SECOND_POSITION).getValue());
+        filterParametersUpdateSlot2.put(SNACK_MACHINE_ID, aggregateRoot.id().getValue());
 
         String sqlUpdateSlot2 = new StringBuilder()
-                .append("UPDATE ").append("SLOT").append(" SET ")
-                .append("SL_QUANTITY = :").append("quantity").append(" ")
-                .append("WHERE ").append("SL_ID = :").append("slotId").append(" ")
-                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append("snackMachineId")
+                .append(UPDATE_CLAUSE).append("SLOT").append(SET_CLAUSE)
+                .append("SL_QUANTITY = :").append(QUANTITY_FIELD).append(" ")
+                .append(WHERE_CLAUSE).append("SL_ID = :").append(SLOT_ID_FIELD).append(" ")
+                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append(SNACK_MACHINE_ID)
                 .toString();
 
         jdbcTemplate.update(sqlUpdateSlot2, filterParametersUpdateSlot2);
 
         Map<String, Object> filterParametersUpdateSlot3 = new HashMap<>();
-        filterParametersUpdateSlot3.put("quantity", aggregateRoot.getSnackPile(THIRD_POSITION).quantity());
-        filterParametersUpdateSlot3.put("slotId", aggregateRoot.getSlotId(THIRD_POSITION).getValue());
-        filterParametersUpdateSlot3.put("snackMachineId", aggregateRoot.id().getValue());
+        filterParametersUpdateSlot3.put(QUANTITY_FIELD, aggregateRoot.getSnackPile(THIRD_POSITION).quantity());
+        filterParametersUpdateSlot3.put(SLOT_ID_FIELD, aggregateRoot.getSlotId(THIRD_POSITION).getValue());
+        filterParametersUpdateSlot3.put(SNACK_MACHINE_ID, aggregateRoot.id().getValue());
 
         String sqlUpdateSlot3 = new StringBuilder()
-                .append("UPDATE ").append("SLOT").append(" SET ")
-                .append("SL_QUANTITY = :").append("quantity").append(" ")
-                .append("WHERE ").append("SL_ID = :").append("slotId").append(" ")
-                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append("snackMachineId")
+                .append(UPDATE_CLAUSE).append("SLOT").append(SET_CLAUSE)
+                .append("SL_QUANTITY = :").append(QUANTITY_FIELD).append(" ")
+                .append(WHERE_CLAUSE).append("SL_ID = :").append(SLOT_ID_FIELD).append(" ")
+                .append("AND ").append("SL_SNACK_MACHINE_ID = :").append(SNACK_MACHINE_ID)
                 .toString();
 
         jdbcTemplate.update(sqlUpdateSlot3, filterParametersUpdateSlot3);
@@ -93,7 +99,7 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
     @Override
     public Optional<SnackMachine> getById(String snackMachineId) {
         Map<String, Object> filterParameters = new HashMap<>();
-        filterParameters.put("snackMachineId", snackMachineId);
+        filterParameters.put(SNACK_MACHINE_ID, snackMachineId);
 
         String sql = new StringBuilder()
                 .append("SELECT ").append("SM_ID, SM_ONE_CENT_COUNT, SM_TEN_CENT_COUNT, SM_QUARTER_CENT_COUNT, ")
@@ -102,7 +108,7 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
                 .append("FROM ").append("SNACK_MACHINE ")
                 .append("INNER JOIN ").append("SLOT ")
                 .append("ON SL_SNACK_MACHINE_ID=SM_ID ")
-                .append("WHERE ").append("SM_ID = :").append("snackMachineId").append(" ")
+                .append(WHERE_CLAUSE).append("SM_ID = :").append(SNACK_MACHINE_ID).append(" ")
                 .append("ORDER BY SL_ID")
                 .toString();
 

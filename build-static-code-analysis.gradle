@@ -33,3 +33,10 @@ jacocoTestReport {
         html.destination "${buildDir}/reports/coverage"
     }
 }
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
