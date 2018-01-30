@@ -1,5 +1,7 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
+import cabanas.garcia.ismael.common.AgreggateRoot;
+
 public class Snack extends AgreggateRoot<SnackId> {
 
     @SuppressWarnings("PMD")

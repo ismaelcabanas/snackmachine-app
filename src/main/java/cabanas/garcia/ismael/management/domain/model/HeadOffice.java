@@ -1,8 +1,8 @@
 package cabanas.garcia.ismael.management.domain.model;
 
-import cabanas.garcia.ismael.snackmachine.domain.model.AgreggateRoot;
+import cabanas.garcia.ismael.common.AgreggateRoot;
 
-public class HeadOffice extends AgreggateRoot<HeadOfficeId>{
+public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
 
     private double balance;
 

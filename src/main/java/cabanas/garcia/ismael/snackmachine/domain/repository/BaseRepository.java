@@ -1,6 +1,6 @@
 package cabanas.garcia.ismael.snackmachine.domain.repository;
 
-import cabanas.garcia.ismael.snackmachine.domain.model.AgreggateRoot;
+import cabanas.garcia.ismael.common.AgreggateRoot;
 
 public abstract class BaseRepository<T extends AgreggateRoot> {
 

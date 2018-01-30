@@ -1,7 +1,7 @@
 package cabanas.garcia.ismael.shared.domain.model;
 
 import cabanas.garcia.ismael.snackmachine.domain.model.NoChangeException;
-import cabanas.garcia.ismael.snackmachine.domain.model.ValueObject;
+import cabanas.garcia.ismael.common.ValueObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

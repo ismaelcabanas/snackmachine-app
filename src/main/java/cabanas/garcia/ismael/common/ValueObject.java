@@ -1,4 +1,4 @@
-package cabanas.garcia.ismael.snackmachine.domain.model;
+package cabanas.garcia.ismael.common;
 
 public abstract class ValueObject<T> {
     @Override

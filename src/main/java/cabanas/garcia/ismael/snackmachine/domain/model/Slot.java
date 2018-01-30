@@ -1,5 +1,7 @@
 package cabanas.garcia.ismael.snackmachine.domain.model;
 
+import cabanas.garcia.ismael.common.Entity;
+
 public class Slot extends Entity<SlotId> {
 
     private final SnackMachine snackMachine;
