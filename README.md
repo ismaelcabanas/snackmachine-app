@@ -36,9 +36,14 @@ Debemos modelar un cajero automático que retira efectivo con una tarjeta. Un us
  - En el caso de haber decimales en la comisión, se redondeará al siguiente decimal.
  
  
-## Gestor del balabalancence
+## Gestor del balance
 
-También necesitamos un sistema que gestione el saldo de los cargos hechos por los cajeros.
+También necesitamos un sistema que gestione el saldo de los cargos hechos por los cajeros y las máquina de snakcs.
+
+Los requisitos del nuevo subsistema serán:
+
+ - Mantener un seguimiento de todos los cargos realizados desde las tarjetas de los usuarios del banco.
+ 
 
 
 ## Bounded Contexts

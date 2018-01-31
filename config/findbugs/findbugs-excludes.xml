@@ -17,7 +17,7 @@
         <Package name="~cabanas\.garcia\.ismael\.storeroom\.bdd\.steps.*"/>
     </Match>
     <Match>
-        <Class name="cabanas.garcia.ismael.snackmachine.domain.model.Snack" />
+        <Class name="cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.Snack" />
         <Bug pattern="URF_UNREAD_FIELD" />
     </Match>
 </FindBugsFilter>
