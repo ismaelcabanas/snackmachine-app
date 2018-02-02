@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.dddinpractice.atm.application;
 
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -20,9 +21,11 @@ public class WithdrawMoneyServiceShould {
 
     @Mock private AtmRepository atmRepositoryMock;
 
+    @Mock private EventProcessor eventProcessorMock;
+
     @Test public void
     withdraw_money_from_atm() {
-        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atmMock, atmRepositoryMock);
+        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atmMock, atmRepositoryMock, eventProcessorMock);
 
         withdrawMoneyService.withdraw(1.5);
 

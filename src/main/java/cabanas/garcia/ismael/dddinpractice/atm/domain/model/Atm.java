@@ -42,6 +42,8 @@ public class Atm extends AgreggateRoot<AtmId> {
 
         double amountWithCommission = caluculateAmountWithCommission(amount);
         this.moneyCharged += amountWithCommission;
+
+        registerEvent(new BalanceChargedEvent(amountWithCommission));
     }
 
     public Money moneyInside() {

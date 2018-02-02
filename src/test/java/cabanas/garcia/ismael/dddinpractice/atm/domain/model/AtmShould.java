@@ -41,4 +41,14 @@ public class AtmShould {
 
         assertThat(atm.moneyCharged()).isEqualTo(1.12);
     }
+
+    @Test public void
+    raise_balance_changed_event_when_withdraw() {
+        AtmSpy atm = new AtmSpy();
+        atm.loadMoney(DOLLAR);
+
+        atm.withdraw(1.0);
+
+        atm.shouldRaiseBalanceChargedEvent(1.01);
+    }
 }
