@@ -32,7 +32,7 @@ public class HeadOfficeRepositoryHappyStub implements HeadOfficeRepository {
     }
 
     @Override
-    public void save(HeadOffice headOffice) {
-        headOfficeRepository.save(headOffice);
+    public void save(HeadOffice ho) {
+        headOfficeRepository.save(ho);
     }
 }

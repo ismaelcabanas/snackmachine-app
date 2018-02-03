@@ -39,8 +39,7 @@ public class PostgresAtmRepository extends BaseRepository<Atm> implements AtmRep
                 .append("AM_AMOUNT_CHARGED = :").append("amountCharged").append(", ")
                 .append("AM_ONE_CENT_COUNT = :").append("oneCentCount").append(", ")
                 .append("AM_TEN_CENT_COUNT = :").append("tenCentCount").append(", ")
-                .append("AM_QUARTER_CENT_COUNT = :").
-                        append("quarterCentCount").append(", ")
+                .append("AM_QUARTER_CENT_COUNT = :").append("quarterCentCount").append(", ")
                 .append("AM_ONE_DOLLAR_COUNT = :").append("oneDollarCount").append(", ")
                 .append("AM_FIVE_DOLLAR_COUNT = :").append("fiveDollarCount").append(", ")
                 .append("AM_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(" ")

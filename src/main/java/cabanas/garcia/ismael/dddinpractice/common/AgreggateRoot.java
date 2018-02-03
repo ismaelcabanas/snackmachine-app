@@ -1,7 +1,5 @@
 package cabanas.garcia.ismael.dddinpractice.common;
 
-import cabanas.garcia.ismael.dddinpractice.atm.domain.model.BalanceChargedEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 

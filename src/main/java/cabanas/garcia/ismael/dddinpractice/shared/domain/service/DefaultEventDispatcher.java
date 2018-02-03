@@ -21,7 +21,7 @@ public class DefaultEventDispatcher implements EventDispatcher {
                         .getActualTypeArguments()[0].getTypeName().equals(domainEvent.getClass().getTypeName());
 
             if (canHandleEvent) {
-               handler.handle(domainEvent);
+                handler.handle(domainEvent);
             }
         });
     }
