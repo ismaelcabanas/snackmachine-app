@@ -45,4 +45,10 @@ public class HeadOfficeRepositoryHappyStub implements HeadOfficeRepository {
         verify(headOfficeRepositoryMock, times(1)).save(headOfficeArgCaptor.capture());
         assertThat(headOfficeArgCaptor.getValue().cash()).isEqualTo(cash);
     }
+
+    public void verifySaveHeadOfficeWithoutCash() {
+        ArgumentCaptor<HeadOffice> headOfficeArgCaptor = ArgumentCaptor.forClass(HeadOffice.class);
+        verify(headOfficeRepositoryMock, times(1)).save(headOfficeArgCaptor.capture());
+        assertThat(headOfficeArgCaptor.getValue().cash()).isEqualTo(Money.none());
+    }
 }

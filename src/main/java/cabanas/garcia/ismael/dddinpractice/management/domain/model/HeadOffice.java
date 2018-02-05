@@ -1,5 +1,6 @@
 package cabanas.garcia.ismael.dddinpractice.management.domain.model;
 
+import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
 import cabanas.garcia.ismael.dddinpractice.common.AgreggateRoot;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
@@ -39,6 +40,11 @@ public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
     public void unloadCash(SnackMachine snackMachine) {
         Money money = snackMachine.unloadMoney();
         cash = cash.add(money);
+    }
+
+    public void loadCash(Atm am) {
+        am.loadMoney(cash);
+        cash = Money.none();
     }
 
     public static class Builder {
