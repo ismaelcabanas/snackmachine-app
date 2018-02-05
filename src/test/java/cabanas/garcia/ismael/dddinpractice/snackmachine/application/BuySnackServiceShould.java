@@ -1,7 +1,13 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.application;
 
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.*;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.Snack;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.Slot;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackPile;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackId;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SlotId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineHappyRepositoryStub;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.service.TransactionService;
@@ -27,11 +33,10 @@ public class BuySnackServiceShould {
 
     @Test public void
     buy_a_snack() {
-        Slot slotOne = Slot.builder().setId(new SlotId()).setPosition(FIRST_POSITION).setSnackPile(SnackPile.builder().setPrice(BigDecimal.ONE).setQuantity(10).setSnack(Snack.builder(new SnackId()).build()).build()).build();
         SnackMachine snackMachine = SnackMachine.builder(new SnackMachineId())
                 .setFiveDollarCount(2)
                 .setTwentyDollarCount(1)
-                .setSlotOne(slotOne)
+                .setSlotOne(getSlotOne())
                 .build();
         snackMachine.insertMoney(Money.DOLLAR);
         SnackMachineHappyRepositoryStub snackMachineHappyRepositoryStub =
@@ -41,6 +46,17 @@ public class BuySnackServiceShould {
         buySnackService.buySnack(snackMachine.id(), FIRST_POSITION);
 
         snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0, 0, 0, 1, 2, 1));
+    }
+
+    private Slot getSlotOne() {
+        return Slot.builder().setId(new SlotId())
+                .setPosition(FIRST_POSITION)
+                .setSnackPile(SnackPile.builder()
+                        .setPrice(BigDecimal.ONE)
+                        .setQuantity(10)
+                        .setSnack(Snack.builder(new SnackId()).build())
+                        .build())
+                .build();
     }
 
 }

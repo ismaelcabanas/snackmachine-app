@@ -15,7 +15,8 @@ public class UnloadCashService {
     private final HeadOfficeRepository headOfficeRepository;
     private final SnackMachineRepository snackMachineRepository;
 
-    public UnloadCashService(HeadOfficeId headOfficeId, SnackMachineId snackMachineId, HeadOfficeRepository headOfficeRepository, SnackMachineRepository snackMachineRepository) {
+    public UnloadCashService(HeadOfficeId headOfficeId, SnackMachineId snackMachineId,
+                             HeadOfficeRepository headOfficeRepository, SnackMachineRepository snackMachineRepository) {
         this.headOfficeId = headOfficeId;
         this.snackMachineId = snackMachineId;
         this.headOfficeRepository = headOfficeRepository;

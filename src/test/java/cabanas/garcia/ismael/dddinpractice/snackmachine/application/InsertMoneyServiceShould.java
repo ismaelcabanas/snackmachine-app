@@ -32,6 +32,6 @@ public class InsertMoneyServiceShould {
 
         insertMoneyService.insertMoney(snackMachine.id(), Money.DOLLAR);
 
-        snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0,0,0,1,2,1));
+        snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0, 0, 0, 1, 2, 1));
     }
 }

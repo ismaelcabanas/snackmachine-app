@@ -20,8 +20,8 @@ public class SnackMachineHappyRepositoryStub implements SnackMachineRepository {
     }
 
     @Override
-    public void save(SnackMachine snackMachine) {
-        snackMachineRepositoryMock.save(snackMachine);
+    public void save(SnackMachine snackMachineToSave) {
+        snackMachineRepositoryMock.save(snackMachineToSave);
     }
 
     @Override

@@ -9,8 +9,6 @@ import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.internal.verification.VerificationModeFactory;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -19,8 +17,6 @@ public class WithdrawMoneyServiceShould {
     //Creating new rule with recommended Strictness setting
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
-
-    @Mock private Atm atmMock;
 
     @Mock private AtmRepository atmRepositoryMock;
 

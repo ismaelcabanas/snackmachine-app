@@ -1,8 +1,6 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.configuration;
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.application.BuySnackService;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.service.TransactionService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.service.SpringTransactionService;

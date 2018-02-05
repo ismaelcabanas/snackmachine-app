@@ -21,8 +21,8 @@ public class AtmHappyRepositoryStub implements AtmRepository {
     }
 
     @Override
-    public void save(Atm atm) {
-        atmRepositoryMock.save(atm);
+    public void save(Atm atmToSave) {
+        atmRepositoryMock.save(atmToSave);
     }
 
     @Override
