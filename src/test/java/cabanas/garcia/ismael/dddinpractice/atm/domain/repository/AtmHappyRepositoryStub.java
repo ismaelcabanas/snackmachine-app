@@ -35,4 +35,11 @@ public class AtmHappyRepositoryStub implements AtmRepository {
         verify(atmRepositoryMock, times(1)).save(atmArgCaptor.capture());
         assertThat(atmArgCaptor.getValue().moneyInside()).isEqualTo(money);
     }
+
+    public void verifySaveAtmWithMoney(Money money, double amountCharged) {
+        ArgumentCaptor<Atm> atmArgCaptor = ArgumentCaptor.forClass(Atm.class);
+        verify(atmRepositoryMock, times(1)).save(atmArgCaptor.capture());
+        assertThat(atmArgCaptor.getValue().moneyInside()).isEqualTo(money);
+        assertThat(atmArgCaptor.getValue().moneyCharged()).isEqualTo(amountCharged);
+    }
 }

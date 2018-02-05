@@ -1,7 +1,10 @@
 package cabanas.garcia.ismael.dddinpractice.atm.application;
 
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
+import cabanas.garcia.ismael.dddinpractice.atm.domain.model.AtmId;
+import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmHappyRepositoryStub;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,10 +28,15 @@ public class WithdrawMoneyServiceShould {
 
     @Test public void
     withdraw_money_from_atm() {
-        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atmMock, atmRepositoryMock, eventProcessorMock);
+        Atm atm = Atm.builder(new AtmId())
+                .setFiveDollarCount(2)
+                .setTwentyDollarCount(1)
+                .build();
+        AtmHappyRepositoryStub atmHappyRepositoryStub = new AtmHappyRepositoryStub(atm, atmRepositoryMock);
+        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atm.id(), atmHappyRepositoryStub, eventProcessorMock);
 
-        withdrawMoneyService.withdraw(1.5);
+        withdrawMoneyService.withdraw(5.00);
 
-        Mockito.verify(atmRepositoryMock, VerificationModeFactory.times(1)).save(atmMock);
+        atmHappyRepositoryStub.verifySaveAtmWithMoney(new Money(0, 0, 0, 0, 1, 1), 5.06);
     }
 }
