@@ -1,6 +1,8 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.application;
 
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.*;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineHappyRepositoryStub;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.service.TransactionService;
 import org.junit.Rule;
@@ -9,11 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.math.BigDecimal;
 import java.util.function.Supplier;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class BuySnackServiceShould {
 
@@ -22,19 +21,26 @@ public class BuySnackServiceShould {
     //Creating new rule with recommended Strictness setting
     @Rule public MockitoRule rule = MockitoJUnit.rule();
 
-    @Mock private SnackMachine snackMachine;
-
-    @Mock private SnackMachineRepository snackMachineRepository;
+    @Mock private SnackMachineRepository snackMachineRepositoryMock;
 
     private TransactionService transactionService = Supplier::get;
 
-    @Test
-    public void buy_a_snack() {
-        BuySnackService buySnackService = new BuySnackService(snackMachine, snackMachineRepository, transactionService);
+    @Test public void
+    buy_a_snack() {
+        Slot slotOne = Slot.builder().setId(new SlotId()).setPosition(FIRST_POSITION).setSnackPile(SnackPile.builder().setPrice(BigDecimal.ONE).setQuantity(10).setSnack(Snack.builder(new SnackId()).build()).build()).build();
+        SnackMachine snackMachine = SnackMachine.builder(new SnackMachineId())
+                .setFiveDollarCount(2)
+                .setTwentyDollarCount(1)
+                .setSlotOne(slotOne)
+                .build();
+        snackMachine.insertMoney(Money.DOLLAR);
+        SnackMachineHappyRepositoryStub snackMachineHappyRepositoryStub =
+                new SnackMachineHappyRepositoryStub(snackMachine, snackMachineRepositoryMock);
+        BuySnackService buySnackService = new BuySnackService(snackMachineHappyRepositoryStub, transactionService);
 
-        buySnackService.buySnack(FIRST_POSITION);
+        buySnackService.buySnack(snackMachine.id(), FIRST_POSITION);
 
-        verify(snackMachine, times(1)).buySnack(FIRST_POSITION);
-        verify(snackMachineRepository, times(1)).save(any());
+        snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0, 0, 0, 1, 2, 1));
     }
+    
 }

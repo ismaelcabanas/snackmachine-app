@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framewor
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.application.BuySnackService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.service.TransactionService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.service.SpringTransactionService;
@@ -18,8 +19,8 @@ public class ServiceConfiguration {
     }
 
     @Bean
-    public BuySnackService buySnackService(SnackMachine snackMachine, SnackMachineRepository snackMachineRepository,
+    public BuySnackService buySnackService(SnackMachineRepository snackMachineRepository,
                                            TransactionService transactionService) {
-        return new BuySnackService(snackMachine, snackMachineRepository, transactionService);
+        return new BuySnackService(snackMachineRepository, transactionService);
     }
 }
