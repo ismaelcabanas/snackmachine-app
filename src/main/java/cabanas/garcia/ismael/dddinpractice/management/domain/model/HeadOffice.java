@@ -1,14 +1,18 @@
 package cabanas.garcia.ismael.dddinpractice.management.domain.model;
 
 import cabanas.garcia.ismael.dddinpractice.common.AgreggateRoot;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
 
 public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
 
     private double balance;
+    private Money cash;
 
     public HeadOffice() {
         super(new HeadOfficeId());
         this.balance = 0;
+        this.cash = Money.none();
     }
 
     private HeadOffice(Builder builder) {
@@ -26,6 +30,15 @@ public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
 
     public static Builder builder(HeadOfficeId headOfficeId) {
         return new Builder(headOfficeId);
+    }
+
+    public Money cash() {
+        return cash;
+    }
+
+    public void unloadCash(SnackMachine snackMachine) {
+        Money money = snackMachine.unloadMoney();
+        cash = cash.add(money);
     }
 
     public static class Builder {

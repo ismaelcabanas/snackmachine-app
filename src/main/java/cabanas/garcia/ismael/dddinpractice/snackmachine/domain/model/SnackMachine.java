@@ -124,6 +124,12 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         return new Builder(id);
     }
 
+    public Money unloadMoney() {
+        Money moneyUnloaded = new Money(this.moneyInside);
+        this.moneyInside = Money.none();
+        return moneyUnloaded;
+    }
+
     public static class Builder {
         private final SnackMachineId id;
         private int smOneCentCount;

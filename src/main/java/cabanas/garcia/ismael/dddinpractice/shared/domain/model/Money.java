@@ -68,6 +68,11 @@ public class Money extends ValueObject<Money> {
         this.twentyDollarCount = twentyDollarCount;
     }
 
+    public Money(Money money) {
+        this(money.getOneCentCount(), money.getTenCentCount(), money.getQuarterCentCount(), money.oneDollarCount,
+                money.fiveDollarCount, money.twentyDollarCount);
+    }
+
     public int getOneCentCount() {
         return oneCentCount;
     }
