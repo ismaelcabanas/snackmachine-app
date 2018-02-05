@@ -42,5 +42,5 @@ public class BuySnackServiceShould {
 
         snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0, 0, 0, 1, 2, 1));
     }
-    
+
 }
