@@ -46,4 +46,10 @@ public class SnackMachineHappyRepositoryStub implements SnackMachineRepository {
         verify(snackMachineRepositoryMock, times(1)).save(snackMachineArgCaptor.capture());
         assertThat(snackMachineArgCaptor.getValue().moneyInside()).isEqualTo(money);
     }
+
+    public void verifySaveSnackMachineWithSlotsWithMoney(Money money) {
+        ArgumentCaptor<SnackMachine> snackMachineArgCaptor = ArgumentCaptor.forClass(SnackMachine.class);
+        verify(snackMachineRepositoryMock, times(1)).saveWithSlots(snackMachineArgCaptor.capture());
+        assertThat(snackMachineArgCaptor.getValue().moneyInside()).isEqualTo(money);
+    }
 }

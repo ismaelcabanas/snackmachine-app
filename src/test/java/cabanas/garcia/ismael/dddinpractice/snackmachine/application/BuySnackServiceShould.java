@@ -45,7 +45,7 @@ public class BuySnackServiceShould {
 
         buySnackService.buySnack(snackMachine.id(), FIRST_POSITION);
 
-        snackMachineHappyRepositoryStub.verifySaveSnackMachineWithMoney(new Money(0, 0, 0, 1, 2, 1));
+        snackMachineHappyRepositoryStub.verifySaveSnackMachineWithSlotsWithMoney(new Money(0, 0, 0, 1, 2, 1));
     }
 
     private Slot getSlotOne() {
