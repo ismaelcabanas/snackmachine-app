@@ -1,7 +1,7 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.repository;
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.BaseRepository;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine> implements SnackMachineRepository {
+public class PostgresSnackMachineRepository implements SnackMachineRepository {
 
     private static final short FIRST_POSITION = 1;
     private static final short SECOND_POSITION = 2;
@@ -102,9 +102,9 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
     }
 
     @Override
-    public Optional<SnackMachine> findById(String snackMachineId) {
+    public Optional<SnackMachine> findById(SnackMachineId snackMachineId) {
         Map<String, Object> filterParameters = new HashMap<>();
-        filterParameters.put(SNACK_MACHINE_ID, snackMachineId);
+        filterParameters.put(SNACK_MACHINE_ID, snackMachineId.getValue());
 
         String sql = new StringBuilder()
                 .append("SELECT ").append("SM_ID, SM_ONE_CENT_COUNT, SM_TEN_CENT_COUNT, SM_QUARTER_CENT_COUNT, ")

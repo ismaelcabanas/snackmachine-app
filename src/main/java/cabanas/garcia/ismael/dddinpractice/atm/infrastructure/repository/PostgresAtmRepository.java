@@ -3,7 +3,6 @@ package cabanas.garcia.ismael.dddinpractice.atm.infrastructure.repository;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.AtmId;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.BaseRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class PostgresAtmRepository extends BaseRepository<Atm> implements AtmRepository {
+public class PostgresAtmRepository implements AtmRepository {
 
     private static final String ATM_ID = "atmId";
     private final NamedParameterJdbcTemplate jdbcTemplate;

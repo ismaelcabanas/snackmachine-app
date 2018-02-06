@@ -16,7 +16,7 @@ public class InsertMoneyService {
     }
 
     public void insertMoney(SnackMachineId snackMachineId, Money money) {
-        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId.getValue());
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId);
         snackMachine.ifPresent(sm -> {
             sm.insertMoney(money);
             snackMachineRepository.save(sm);

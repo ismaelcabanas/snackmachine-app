@@ -1,8 +1,12 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository;
 
 import cabanas.garcia.ismael.dddinpractice.common.AgreggateRoot;
+import cabanas.garcia.ismael.dddinpractice.common.ValueObject;
 
-public abstract class BaseRepository<T extends AgreggateRoot> {
+import java.util.Optional;
 
-    public abstract void save(T aggregateRoot);
+public interface BaseRepository<ID extends ValueObject<ID>, T extends AgreggateRoot> {
+
+    Optional<T> findById(ID id);
+    void save(T aggregateRoot);
 }

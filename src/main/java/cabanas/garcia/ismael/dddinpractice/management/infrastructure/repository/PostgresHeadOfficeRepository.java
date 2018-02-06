@@ -3,7 +3,6 @@ package cabanas.garcia.ismael.dddinpractice.management.infrastructure.repository
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOffice;
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOfficeId;
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepository;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.BaseRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -11,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class PostgresHeadOfficeRepository extends BaseRepository<HeadOffice> implements HeadOfficeRepository {
+public class PostgresHeadOfficeRepository implements HeadOfficeRepository {
 
     private static final String HEAD_OFFICE_ID = "headOfficeId";
     private final NamedParameterJdbcTemplate jdbcTemplate;

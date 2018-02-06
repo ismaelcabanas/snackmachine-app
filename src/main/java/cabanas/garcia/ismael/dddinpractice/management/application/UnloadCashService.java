@@ -25,7 +25,7 @@ public class UnloadCashService {
 
     public void unload() {
         Optional<HeadOffice> headOffice = headOfficeRepository.findById(headOfficeId);
-        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId.getValue());
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId);
         headOffice.ifPresent(ho -> {
             snackMachine.ifPresent(sm -> {
                 ho.unloadCash(sm);

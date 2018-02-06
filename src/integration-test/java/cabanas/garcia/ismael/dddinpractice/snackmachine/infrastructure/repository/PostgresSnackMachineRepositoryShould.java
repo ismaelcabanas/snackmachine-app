@@ -1,6 +1,7 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.repository;
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.Application;
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class PostgresSnackMachineRepositoryShould {
     @Transactional
     @Test public void
     save_snack_machine_with_slots() {
-        Optional<SnackMachine> snackMachine = snackMachineRepository.findById("1");
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(new SnackMachineId("1"));
 
         snackMachine.ifPresent(sm -> {
             sm.insertMoney(DOLLAR);

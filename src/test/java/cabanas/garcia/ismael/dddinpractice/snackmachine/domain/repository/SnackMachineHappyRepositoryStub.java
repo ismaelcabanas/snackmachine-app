@@ -2,6 +2,7 @@ package cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository;
 
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import org.mockito.ArgumentCaptor;
 
 import java.util.Optional;
@@ -25,8 +26,13 @@ public class SnackMachineHappyRepositoryStub implements SnackMachineRepository {
     }
 
     @Override
-    public Optional<SnackMachine> findById(String snackMachineId) {
+    public Optional<SnackMachine> findById(SnackMachineId snackMachineId) {
         return Optional.of(snackMachine);
+    }
+
+    @Override
+    public void saveWithSlots(SnackMachine snackMachineToSave) {
+        snackMachineRepositoryMock.saveWithSlots(snackMachineToSave);
     }
 
     public void verifySaveSnackMachineWithNoMoneyInside() {

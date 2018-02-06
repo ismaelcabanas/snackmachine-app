@@ -19,8 +19,7 @@ public class ReturnMoneyServiceShould {
     @Mock
     private SnackMachineRepository snackMachineRepositoryMock;
 
-    @Test
-    public void
+    @Test public void
     return_money_inserted_into_snack_machine() {
         SnackMachine snackMachine = SnackMachine.builder(new SnackMachineId())
                 .setFiveDollarCount(2)

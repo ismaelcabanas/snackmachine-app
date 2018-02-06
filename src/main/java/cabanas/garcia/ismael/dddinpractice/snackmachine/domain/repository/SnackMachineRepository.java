@@ -1,13 +1,8 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository;
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 
-import java.util.Optional;
-
-public interface SnackMachineRepository {
-    void save(SnackMachine snackMachine);
-
-    Optional<SnackMachine> findById(String snackMachineId);
-
+public interface SnackMachineRepository extends BaseRepository<SnackMachineId, SnackMachine> {
     void saveWithSlots(SnackMachine snackMachine);
 }
