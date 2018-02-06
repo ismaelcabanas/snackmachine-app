@@ -143,18 +143,17 @@ task integrationTest(type: Test) {
     }
 }
 
-/*
 integrationTest {
     useJUnit {
-        includeCategories 'cabanas.garcia.ismael.storeroom.IntegrationTests'
+        includeCategories 'cabanas.garcia.ismael.dddinpractice.IntegrationTest'
     }
 }
-*/
+
 
 dockerCompose.isRequiredBy(integrationTest)
 
 dockerCompose {
-    useComposeFiles = ['docker-compose-integration-test.yml'] // like 'docker-compose -f <file>'
+    useComposeFiles = ['docker-compose.yml'] // like 'docker-compose -f <file>'
     captureContainersOutput = true // prints output of all containers to Gradle output - very useful for debugging
     stopContainers = true // doesn't call `docker-compose down` - useful for debugging
     removeContainers = true

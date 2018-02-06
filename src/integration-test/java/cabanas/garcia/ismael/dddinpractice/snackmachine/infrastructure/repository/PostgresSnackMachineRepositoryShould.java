@@ -1,10 +1,12 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.repository;
 
+import cabanas.garcia.ismael.dddinpractice.IntegrationTest;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.Application;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
-@ActiveProfiles("dev")
+@Category(IntegrationTest.class)
+@ActiveProfiles("integration-test")
 public class PostgresSnackMachineRepositoryShould {
 
     private static final short FIRST_POSITION = 1;
