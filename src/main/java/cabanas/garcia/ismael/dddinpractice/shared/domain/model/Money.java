@@ -8,6 +8,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import static java.math.BigDecimal.ONE;
 
@@ -201,7 +204,9 @@ public class Money extends ValueObject<Money> {
         if (amount < 1) {
             return String.format("¢%d", Double.valueOf(amount * 100).intValue());
         }
-
-        return String.format("$%.2f", amount);
+        DecimalFormat decimalFormat = (DecimalFormat)
+                NumberFormat.getNumberInstance(Locale.ENGLISH);
+        decimalFormat.applyPattern("$###.00");
+        return decimalFormat.format(amount);
     }
 }
