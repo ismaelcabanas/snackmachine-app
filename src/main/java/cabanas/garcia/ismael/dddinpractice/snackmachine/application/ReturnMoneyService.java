@@ -14,7 +14,7 @@ public class ReturnMoneyService {
     }
 
     public void returnMoney(SnackMachineId snackMachineId) {
-        Optional<SnackMachine> snackMachine = snackMachineRepository.getById(snackMachineId.getValue());
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId.getValue());
         snackMachine.ifPresent(sm -> {
             sm.returnMoney();
             snackMachineRepository.save(sm);

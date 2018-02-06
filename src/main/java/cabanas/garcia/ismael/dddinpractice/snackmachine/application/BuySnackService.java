@@ -19,11 +19,11 @@ public class BuySnackService {
     }
 
     public void buySnack(SnackMachineId snackMachineId, short position) {
-        Optional<SnackMachine> snackMachine = snackMachineRepository.getById(snackMachineId.getValue());
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId.getValue());
         snackMachine.ifPresent(sm -> {
             transactionService.doInTransaction(() -> {
                 sm.buySnack(position);
-                snackMachineRepository.save(sm);
+                snackMachineRepository.saveWithSlots(sm);
                 return snackMachineId;
             });
 

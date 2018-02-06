@@ -37,13 +37,13 @@ public class PostgresSnackMachineRepositoryShould {
 
     @Transactional
     @Test public void
-    save_snack_machine() {
-        Optional<SnackMachine> snackMachine = snackMachineRepository.getById("1");
+    save_snack_machine_with_slots() {
+        Optional<SnackMachine> snackMachine = snackMachineRepository.findById("1");
 
         snackMachine.ifPresent(sm -> {
             sm.insertMoney(DOLLAR);
             sm.buySnack(FIRST_POSITION);
-            snackMachineRepository.save(sm);
+            snackMachineRepository.saveWithSlots(sm);
         });
 
         SnackMachine snackMachineSaved = getSnackMachineById(snackMachine.get().id().getValue());

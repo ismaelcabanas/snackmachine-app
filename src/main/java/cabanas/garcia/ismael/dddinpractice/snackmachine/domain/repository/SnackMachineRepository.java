@@ -7,5 +7,7 @@ import java.util.Optional;
 public interface SnackMachineRepository {
     void save(SnackMachine snackMachine);
 
-    Optional<SnackMachine> getById(String snackMachineId);
+    Optional<SnackMachine> findById(String snackMachineId);
+
+    void saveWithSlots(SnackMachine snackMachine);
 }

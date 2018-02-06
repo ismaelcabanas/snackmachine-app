@@ -16,11 +16,11 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
     private static final short SECOND_POSITION = 2;
     private static final short THIRD_POSITION = 3;
     private static final String SNACK_MACHINE_ID = "snackMachineId";
-    public static final String SET_CLAUSE = " SET ";
-    public static final String UPDATE_CLAUSE = "UPDATE ";
-    public static final String WHERE_CLAUSE = "WHERE ";
-    public static final String QUANTITY_FIELD = "quantity";
-    public static final String SLOT_ID_FIELD = "slotId";
+    private static final String SET_CLAUSE = " SET ";
+    private static final String UPDATE_CLAUSE = "UPDATE ";
+    private static final String WHERE_CLAUSE = "WHERE ";
+    private static final String QUANTITY_FIELD = "quantity";
+    private static final String SLOT_ID_FIELD = "slotId";
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final SnackMachineRowMapper snackMachineRowMapper;
 
@@ -29,6 +29,7 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
         this.snackMachineRowMapper = snackMachineRowMapper;
     }
 
+    @Override
     public void save(SnackMachine aggregateRoot) {
         Map<String, Object> filterParameters = new HashMap<>();
         filterParameters.put("oneCentCount", aggregateRoot.moneyInside().getOneCentCount());
@@ -51,6 +52,10 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
                 .toString();
 
         jdbcTemplate.update(sql, filterParameters);
+    }
+
+    public void saveWithSlots(SnackMachine aggregateRoot) {
+        save(aggregateRoot);
 
         Map<String, Object> filterParametersUpdateSlot1 = new HashMap<>();
         filterParametersUpdateSlot1.put(QUANTITY_FIELD, aggregateRoot.getSnackPile(FIRST_POSITION).quantity());
@@ -97,7 +102,7 @@ public class PostgresSnackMachineRepository extends BaseRepository<SnackMachine>
     }
 
     @Override
-    public Optional<SnackMachine> getById(String snackMachineId) {
+    public Optional<SnackMachine> findById(String snackMachineId) {
         Map<String, Object> filterParameters = new HashMap<>();
         filterParameters.put(SNACK_MACHINE_ID, snackMachineId);
 

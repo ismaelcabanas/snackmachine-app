@@ -25,7 +25,7 @@ public class SnackMachineHappyRepositoryStub implements SnackMachineRepository {
     }
 
     @Override
-    public Optional<SnackMachine> getById(String snackMachineId) {
+    public Optional<SnackMachine> findById(String snackMachineId) {
         return Optional.of(snackMachine);
     }
 

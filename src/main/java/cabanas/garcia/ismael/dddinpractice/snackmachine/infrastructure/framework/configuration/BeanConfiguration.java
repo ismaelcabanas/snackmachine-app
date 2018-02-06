@@ -10,6 +10,6 @@ public class BeanConfiguration {
 
     @Bean
     public SnackMachine snackMachine(SnackMachineRepository snackMachineRepository) {
-        return snackMachineRepository.getById("1").orElseThrow(RuntimeException::new);
+        return snackMachineRepository.findById("1").orElseThrow(RuntimeException::new);
     }
 }
