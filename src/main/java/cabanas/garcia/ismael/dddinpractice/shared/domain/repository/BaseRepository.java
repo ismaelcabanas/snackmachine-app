@@ -1,4 +1,4 @@
-package cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository;
+package cabanas.garcia.ismael.dddinpractice.shared.domain.repository;
 
 import cabanas.garcia.ismael.dddinpractice.common.AgreggateRoot;
 import cabanas.garcia.ismael.dddinpractice.common.ValueObject;
