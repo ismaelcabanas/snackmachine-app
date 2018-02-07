@@ -1,6 +1,7 @@
 package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.configuration;
 
 import cabanas.garcia.ismael.dddinpractice.snackmachine.application.BuySnackService;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.application.CheckStatusOfSnackMachineService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.application.InsertMoneyService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.application.ReturnMoneyService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
@@ -32,5 +33,10 @@ public class ServiceConfiguration {
     @Bean
     public ReturnMoneyService returnMoneyService(SnackMachineRepository snackMachineRepository) {
         return new ReturnMoneyService(snackMachineRepository);
+    }
+
+    @Bean
+    public CheckStatusOfSnackMachineService checkStatusOfSnackMachineService(SnackMachineRepository snackMachineRepository) {
+        return new CheckStatusOfSnackMachineService(snackMachineRepository);
     }
 }
