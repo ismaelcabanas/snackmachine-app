@@ -8,6 +8,7 @@ import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOffi
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepositoryHappyStub;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -25,24 +26,40 @@ public class LoadCashServiceShould {
     @Mock
     private AtmRepository atmRepositoryMock;
 
-    @Test public void
-    pass_cash_from_head_office_to_atm() {
+    private HeadOfficeRepositoryHappyStub headOfficeRepositoryHappyStub;
+    private AtmHappyRepositoryStub atmHappyRepositoryStub;
+    private HeadOffice headOffice;
+    private Atm atm;
+
+    @Before public void
+    setUp() {
         SnackMachine snackMachine = new SnackMachine();
         snackMachine.insertMoney(Money.FIVE_DOLLAR);
         snackMachine.insertMoney(Money.FIVE_DOLLAR);
         snackMachine.insertMoney(Money.TWENTY_DOLLAR);
-        HeadOffice headOffice = new HeadOffice();
+        headOffice = new HeadOffice();
         headOffice.unloadCash(snackMachine);
-        Atm atm = new Atm();
-        HeadOfficeRepositoryHappyStub headOfficeRepositoryHappyStub =
-                new HeadOfficeRepositoryHappyStub(headOffice, headOfficeRepositoryMock);
-        AtmHappyRepositoryStub atmHappyRepositoryStub = new AtmHappyRepositoryStub(atm, atmRepositoryMock);
+        atm = new Atm();
+        headOfficeRepositoryHappyStub = new HeadOfficeRepositoryHappyStub(headOffice, headOfficeRepositoryMock);
+        atmHappyRepositoryStub = new AtmHappyRepositoryStub(atm, atmRepositoryMock);
+    }
+
+    @Test public void
+    pass_cash_from_head_office_to_atm() {
         LoadCashService loadCashService =
-                new LoadCashService(headOffice.id(), atm.id(), headOfficeRepositoryHappyStub, atmHappyRepositoryStub);
+                new LoadCashService(headOfficeRepositoryHappyStub, atmHappyRepositoryStub);
 
-        loadCashService.loadCash();
+        loadCashService.loadCash(headOffice.id(), atm.id());
 
+        verifySaveHeadOfficeWithoutCash();
+        verifySaveAtmWithMoney(new Money(0, 0, 0, 0, 2, 1));
+    }
+
+    private void verifySaveAtmWithMoney(Money money) {
+        atmHappyRepositoryStub.verifySaveAtmWithMoney(money);
+    }
+
+    private void verifySaveHeadOfficeWithoutCash() {
         headOfficeRepositoryHappyStub.verifySaveHeadOfficeWithoutCash();
-        atmHappyRepositoryStub.verifySaveAtmWithMoney(new Money(0, 0, 0, 0, 2, 1));
     }
 }

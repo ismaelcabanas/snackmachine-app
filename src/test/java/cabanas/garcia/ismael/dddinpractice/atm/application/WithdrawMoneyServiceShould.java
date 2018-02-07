@@ -6,6 +6,7 @@ import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmHappyReposit
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -22,17 +23,28 @@ public class WithdrawMoneyServiceShould {
 
     @Mock private EventProcessor eventProcessorMock;
 
-    @Test public void
-    withdraw_money_from_atm() {
-        Atm atm = Atm.builder(new AtmId())
+    private AtmHappyRepositoryStub atmHappyRepositoryStub;
+    private Atm atm;
+
+    @Before public void
+    setUp() {
+        atm = Atm.builder(new AtmId())
                 .setFiveDollarCount(2)
                 .setTwentyDollarCount(1)
                 .build();
-        AtmHappyRepositoryStub atmHappyRepositoryStub = new AtmHappyRepositoryStub(atm, atmRepositoryMock);
-        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atm.id(), atmHappyRepositoryStub, eventProcessorMock);
+        atmHappyRepositoryStub = new AtmHappyRepositoryStub(atm, atmRepositoryMock);
+    }
 
-        withdrawMoneyService.withdraw(5.00);
+    @Test public void
+    withdraw_money_from_atm() {
+        WithdrawMoneyService withdrawMoneyService = new WithdrawMoneyService(atmHappyRepositoryStub, eventProcessorMock);
 
-        atmHappyRepositoryStub.verifySaveAtmWithMoney(new Money(0, 0, 0, 0, 1, 1), 5.06);
+        withdrawMoneyService.withdraw(atm.id(), 5.00);
+
+        verifySaveAtmWithMoney(new Money(0, 0, 0, 0, 1, 1), 5.06);
+    }
+
+    private void verifySaveAtmWithMoney(Money money, double amount) {
+        atmHappyRepositoryStub.verifySaveAtmWithMoney(money, amount);
     }
 }

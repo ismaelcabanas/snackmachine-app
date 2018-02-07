@@ -4,7 +4,7 @@ import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOffice;
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOfficeId;
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepository;
 import cabanas.garcia.ismael.dddinpractice.management.infrastructure.repository.HeadOfficeRowMapper;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.Application;
+import cabanas.garcia.ismael.dddinpractice.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

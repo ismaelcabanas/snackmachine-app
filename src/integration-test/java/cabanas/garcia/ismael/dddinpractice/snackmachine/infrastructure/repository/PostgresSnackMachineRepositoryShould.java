@@ -4,7 +4,7 @@ import cabanas.garcia.ismael.dddinpractice.IntegrationTest;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.Application;
+import cabanas.garcia.ismael.dddinpractice.Application;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;

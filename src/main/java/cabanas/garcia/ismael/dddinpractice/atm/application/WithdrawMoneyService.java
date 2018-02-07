@@ -8,17 +8,15 @@ import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
 import java.util.Optional;
 
 public class WithdrawMoneyService {
-    private final AtmId atmId;
     private final AtmRepository atmRepository;
     private final EventProcessor eventProcessor;
 
-    public WithdrawMoneyService(AtmId atmId, AtmRepository atmRepository, EventProcessor eventProcessor) {
-        this.atmId = atmId;
+    public WithdrawMoneyService(AtmRepository atmRepository, EventProcessor eventProcessor) {
         this.atmRepository = atmRepository;
         this.eventProcessor = eventProcessor;
     }
 
-    public void withdraw(double amount) {
+    public void withdraw(AtmId atmId, double amount) {
         Optional<Atm> atm = atmRepository.findById(atmId);
         atm.ifPresent(am -> {
             am.withdraw(amount);

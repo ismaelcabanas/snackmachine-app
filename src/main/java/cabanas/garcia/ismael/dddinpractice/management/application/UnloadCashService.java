@@ -10,20 +10,15 @@ import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackM
 import java.util.Optional;
 
 public class UnloadCashService {
-    private final HeadOfficeId headOfficeId;
-    private final SnackMachineId snackMachineId;
     private final HeadOfficeRepository headOfficeRepository;
     private final SnackMachineRepository snackMachineRepository;
 
-    public UnloadCashService(HeadOfficeId headOfficeId, SnackMachineId snackMachineId,
-                             HeadOfficeRepository headOfficeRepository, SnackMachineRepository snackMachineRepository) {
-        this.headOfficeId = headOfficeId;
-        this.snackMachineId = snackMachineId;
+    public UnloadCashService(HeadOfficeRepository headOfficeRepository, SnackMachineRepository snackMachineRepository) {
         this.headOfficeRepository = headOfficeRepository;
         this.snackMachineRepository = snackMachineRepository;
     }
 
-    public void unload() {
+    public void unloadCash(HeadOfficeId headOfficeId, SnackMachineId snackMachineId) {
         Optional<HeadOffice> headOffice = headOfficeRepository.findById(headOfficeId);
         Optional<SnackMachine> snackMachine = snackMachineRepository.findById(snackMachineId);
         headOffice.ifPresent(ho -> {

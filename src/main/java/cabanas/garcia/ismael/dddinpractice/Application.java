@@ -1,4 +1,4 @@
-package cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework;
+package cabanas.garcia.ismael.dddinpractice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

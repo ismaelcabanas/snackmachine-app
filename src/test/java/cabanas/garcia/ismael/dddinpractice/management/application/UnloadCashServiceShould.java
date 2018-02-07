@@ -7,6 +7,7 @@ import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachine;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineHappyRepositoryStub;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.repository.SnackMachineRepository;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,23 +25,38 @@ public class UnloadCashServiceShould {
     @Mock
     private SnackMachineRepository snackMachineRepositoryMock;
 
-    @Test public void
-    pass_all_money_from_snackmachine_to_head_office() {
-        HeadOffice headOffice = new HeadOffice();
-        SnackMachine snackMachine = new SnackMachine();
+    private SnackMachine snackMachine;
+    private HeadOffice headOffice;
+    private HeadOfficeRepositoryHappyStub headOfficeRepositoryHappyStub;
+    private SnackMachineHappyRepositoryStub snackMachineHappyRepositoryStub;
+
+    @Before public void
+    setUp() {
+        snackMachine = new SnackMachine();
         snackMachine.insertMoney(Money.FIVE_DOLLAR);
         snackMachine.insertMoney(Money.FIVE_DOLLAR);
         snackMachine.insertMoney(Money.TWENTY_DOLLAR);
-        HeadOfficeRepositoryHappyStub headOfficeRepositoryHappyStub =
-                new HeadOfficeRepositoryHappyStub(headOffice, headOfficeRepositoryMock);
-        SnackMachineHappyRepositoryStub snackMachineHappyRepositoryStub =
-                new SnackMachineHappyRepositoryStub(snackMachine, snackMachineRepositoryMock);
+        headOffice = new HeadOffice();
+        headOfficeRepositoryHappyStub = new HeadOfficeRepositoryHappyStub(headOffice, headOfficeRepositoryMock);
+        snackMachineHappyRepositoryStub = new SnackMachineHappyRepositoryStub(snackMachine, snackMachineRepositoryMock);
+    }
+
+    @Test public void
+    pass_all_money_from_snackmachine_to_head_office() {
         UnloadCashService unloadCashService =
-                new UnloadCashService(headOffice.id(), snackMachine.id(), headOfficeRepositoryHappyStub, snackMachineHappyRepositoryStub);
+                new UnloadCashService(headOfficeRepositoryHappyStub, snackMachineHappyRepositoryStub);
 
-        unloadCashService.unload();
+        unloadCashService.unloadCash(headOffice.id(), snackMachine.id());
 
-        headOfficeRepositoryHappyStub.verifySaveHeadOfficeWithCash(new Money(0, 0, 0, 0, 2, 1));
+        verifySaveHeadOfficeWithCash(new Money(0, 0, 0, 0, 2, 1));
+        verifySaveSnackMachineWithNoMoneyInside();
+    }
+
+    private void verifySaveSnackMachineWithNoMoneyInside() {
         snackMachineHappyRepositoryStub.verifySaveSnackMachineWithNoMoneyInside();
+    }
+
+    private void verifySaveHeadOfficeWithCash(Money money) {
+        headOfficeRepositoryHappyStub.verifySaveHeadOfficeWithCash(money);
     }
 }

@@ -11,19 +11,15 @@ import java.util.Optional;
 
 public class LoadCashService {
 
-    private final HeadOfficeId headOfficeId;
-    private final AtmId atmId;
     private final HeadOfficeRepository headOfficeRepository;
     private final AtmRepository atmRepository;
 
-    public LoadCashService(HeadOfficeId headOfficeId, AtmId atmId, HeadOfficeRepository headOfficeRepository, AtmRepository atmRepository) {
-        this.headOfficeId = headOfficeId;
-        this.atmId = atmId;
+    public LoadCashService(HeadOfficeRepository headOfficeRepository, AtmRepository atmRepository) {
         this.headOfficeRepository = headOfficeRepository;
         this.atmRepository = atmRepository;
     }
 
-    public void loadCash() {
+    public void loadCash(HeadOfficeId headOfficeId, AtmId atmId) {
         Optional<HeadOffice> headOffice = headOfficeRepository.findById(headOfficeId);
         Optional<Atm> atm = atmRepository.findById(atmId);
 

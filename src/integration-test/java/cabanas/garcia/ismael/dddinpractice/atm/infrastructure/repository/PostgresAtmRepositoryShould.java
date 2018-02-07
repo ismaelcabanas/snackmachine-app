@@ -3,7 +3,7 @@ package cabanas.garcia.ismael.dddinpractice.atm.infrastructure.repository;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.AtmId;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
-import cabanas.garcia.ismael.dddinpractice.snackmachine.infrastructure.framework.Application;
+import cabanas.garcia.ismael.dddinpractice.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
