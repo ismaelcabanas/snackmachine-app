@@ -28,6 +28,7 @@ public class SnackMachineResultSetExtractor implements ResultSetExtractor<SnackM
                 .setOneDollarCount(rs.getInt("SM_ONE_DOLLAR_COUNT"))
                 .setFiveDollarCount(rs.getInt("SM_FIVE_DOLLAR_COUNT"))
                 .setTwentyDollarCount(rs.getInt("SM_TWENTY_DOLLAR_COUNT"))
+                .setAmountInTransaction(rs.getDouble("SM_AMOUNT_IN_TRANSACTION"))
                 .setSlotOne(getSlotFromResultSet(rs));
 
         rs.next();

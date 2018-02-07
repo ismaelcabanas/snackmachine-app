@@ -38,6 +38,7 @@ public class PostgresSnackMachineRepository implements SnackMachineRepository {
         filterParameters.put("oneDollarCount", aggregateRoot.moneyInside().getOneDollarCount());
         filterParameters.put("fiveDollarCount", aggregateRoot.moneyInside().getFiveDollarCount());
         filterParameters.put("twentyDollarCount", aggregateRoot.moneyInside().getTwentyDollarCount());
+        filterParameters.put("amountInTransaction", aggregateRoot.amountInTransaction());
         filterParameters.put(SNACK_MACHINE_ID, aggregateRoot.id().getValue());
 
         String sql = new StringBuilder()
@@ -47,7 +48,8 @@ public class PostgresSnackMachineRepository implements SnackMachineRepository {
                 .append("SM_QUARTER_CENT_COUNT = :").append("quarterCentCount").append(", ")
                 .append("SM_ONE_DOLLAR_COUNT = :").append("oneDollarCount").append(", ")
                 .append("SM_FIVE_DOLLAR_COUNT = :").append("fiveDollarCount").append(", ")
-                .append("SM_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(" ")
+                .append("SM_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(", ")
+                .append("SM_AMOUNT_IN_TRANSACTION = :").append("amountInTransaction").append(" ")
                 .append(WHERE_CLAUSE).append("SM_ID = :").append(SNACK_MACHINE_ID)
                 .toString();
 
@@ -108,7 +110,7 @@ public class PostgresSnackMachineRepository implements SnackMachineRepository {
 
         String sql = new StringBuilder()
                 .append("SELECT ").append("SM_ID, SM_ONE_CENT_COUNT, SM_TEN_CENT_COUNT, SM_QUARTER_CENT_COUNT, ")
-                .append("SM_ONE_DOLLAR_COUNT, SM_FIVE_DOLLAR_COUNT, SM_TWENTY_DOLLAR_COUNT, SL_ID, SL_QUANTITY, ")
+                .append("SM_ONE_DOLLAR_COUNT, SM_FIVE_DOLLAR_COUNT, SM_TWENTY_DOLLAR_COUNT, SM_AMOUNT_IN_TRANSACTION, SL_ID, SL_QUANTITY, ")
                 .append("SL_POSITION, SL_PRICE, SL_SNACK_ID ")
                 .append("FROM ").append("SNACK_MACHINE ")
                 .append("INNER JOIN ").append("SLOT ")

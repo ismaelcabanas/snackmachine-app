@@ -35,6 +35,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         super(builder.id);
         this.moneyInside = new Money(builder.smOneCentCount, builder.smTenCentCount, builder.smQuarterCentCount,
                 builder.smOneDollarCount, builder.smFiveDollarCount, builder.smTwentyDollarCount);
+        this.moneyInTransaction = builder.smAmountInTransaction;
         this.slots = new ArrayList<>();
         this.slots.add(builder.slotOne);
         this.slots.add(builder.slotTwo);
@@ -141,6 +142,7 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
         private Slot slotOne;
         private Slot slotTwo;
         private Slot slotThree;
+        private double smAmountInTransaction;
 
         public Builder(SnackMachineId id) {
             this.id = id;
@@ -192,6 +194,11 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
 
         public Builder setSlotThird(Slot slot) {
             this.slotThree = slot;
+            return this;
+        }
+
+        public Builder setAmountInTransaction(double smAmountInTransaction) {
+            this.smAmountInTransaction = smAmountInTransaction;
             return this;
         }
     }
