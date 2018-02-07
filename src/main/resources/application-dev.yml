@@ -3,7 +3,7 @@ docker:
 
 spring:
   datasource:
-    url: "jdbc:postgresql://${docker.host}:5432/postgres?currentSchema=postgres"
+    url: "jdbc:postgresql://${docker.host}:5432/postgres?currentSchema=snackmachine"
     username: postgres
     password: postgres
 
