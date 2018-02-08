@@ -19,6 +19,12 @@ public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
     private HeadOffice(Builder builder) {
         super(builder.headOfficeId);
         this.balance = builder.balance;
+        this.cash = new Money(builder.oneCentCount,
+                builder.tenCentCount,
+                builder.quarterCentCount,
+                builder.oneDollarCount,
+                builder.fiveDollarCount,
+                builder.twentyDollarCount);
     }
 
     public void changeBalance(double amount) {
@@ -51,6 +57,12 @@ public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
 
         private final HeadOfficeId headOfficeId;
         private double balance;
+        private int oneCentCount;
+        private int tenCentCount;
+        private int twentyDollarCount;
+        private int quarterCentCount;
+        private int oneDollarCount;
+        private int fiveDollarCount;
 
         public Builder(HeadOfficeId headOfficeId) {
             this.headOfficeId = headOfficeId;
@@ -63,6 +75,36 @@ public class HeadOffice extends AgreggateRoot<HeadOfficeId> {
 
         public HeadOffice build() {
             return new HeadOffice(this);
+        }
+
+        public Builder setOneCentCount(int oneCentCount) {
+            this.oneCentCount = oneCentCount;
+            return this;
+        }
+
+        public Builder setTenCentCount(int tenCentCount) {
+            this.tenCentCount = tenCentCount;
+            return this;
+        }
+
+        public Builder setQuarterCentCount(int quarterCentCount) {
+            this.quarterCentCount = quarterCentCount;
+            return this;
+        }
+
+        public Builder setOneDollarCount(int oneDollarCount) {
+            this.oneDollarCount = oneDollarCount;
+            return this;
+        }
+
+        public Builder setFiveDollarCount(int fiveDollarCount) {
+            this.fiveDollarCount = fiveDollarCount;
+            return this;
+        }
+
+        public Builder setTwentyDollarCount(int twentyDollarCount) {
+            this.twentyDollarCount = twentyDollarCount;
+            return this;
         }
     }
 }

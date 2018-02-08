@@ -25,11 +25,23 @@ public class PostgresHeadOfficeRepository implements HeadOfficeRepository {
     public void save(HeadOffice aggregateRoot) {
         Map<String, Object> filterParameters = new HashMap<>();
         filterParameters.put("balance", aggregateRoot.balance());
+        filterParameters.put("oneCentCount", aggregateRoot.cash().getOneCentCount());
+        filterParameters.put("tenCentCount", aggregateRoot.cash().getTenCentCount());
+        filterParameters.put("quarterCentCount", aggregateRoot.cash().getQuarterCentCount());
+        filterParameters.put("oneDollarCount", aggregateRoot.cash().getOneDollarCount());
+        filterParameters.put("fiveDollarCount", aggregateRoot.cash().getFiveDollarCount());
+        filterParameters.put("twentyDollarCount", aggregateRoot.cash().getTwentyDollarCount());
         filterParameters.put(HEAD_OFFICE_ID, aggregateRoot.id().getValue());
 
         String sql = new StringBuilder()
                 .append("UPDATE ").append("HEAD_OFFICE").append(" SET ")
-                .append("HO_BALANCE = :").append("balance").append(" ")
+                .append("HO_BALANCE = :").append("balance").append(", ")
+                .append("HO_ONE_CENT_COUNT = :").append("oneCentCount").append(", ")
+                .append("HO_TEN_CENT_COUNT = :").append("tenCentCount").append(", ")
+                .append("HO_QUARTER_CENT_COUNT = :").append("quarterCentCount").append(", ")
+                .append("HO_ONE_DOLLAR_COUNT = :").append("oneDollarCount").append(", ")
+                .append("HO_FIVE_DOLLAR_COUNT = :").append("fiveDollarCount").append(", ")
+                .append("HO_TWENTY_DOLLAR_COUNT = :").append("twentyDollarCount").append(" ")
                 .append("WHERE ").append("HO_ID = :").append(HEAD_OFFICE_ID)
                 .toString();
 
@@ -43,7 +55,8 @@ public class PostgresHeadOfficeRepository implements HeadOfficeRepository {
         filterParameters.put(HEAD_OFFICE_ID, headOfficeId.getValue());
 
         String sql = new StringBuilder()
-                .append("SELECT ").append("HO_ID, HO_BALANCE ")
+                .append("SELECT ").append("HO_ID, HO_BALANCE, HO_ONE_CENT_COUNT, HO_TEN_CENT_COUNT, HO_QUARTER_CENT_COUNT, ")
+                .append("HO_ONE_DOLLAR_COUNT, HO_FIVE_DOLLAR_COUNT, HO_TWENTY_DOLLAR_COUNT ")
                 .append("FROM ").append("HEAD_OFFICE ")
                 .append("WHERE ").append("HO_ID = :").append(HEAD_OFFICE_ID).append(" ")
                 .append("ORDER BY HO_ID")

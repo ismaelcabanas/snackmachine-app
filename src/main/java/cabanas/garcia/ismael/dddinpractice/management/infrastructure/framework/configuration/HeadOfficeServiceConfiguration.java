@@ -1,6 +1,7 @@
 package cabanas.garcia.ismael.dddinpractice.management.infrastructure.framework.configuration;
 
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
+import cabanas.garcia.ismael.dddinpractice.management.application.CheckStatusHeadOfficeService;
 import cabanas.garcia.ismael.dddinpractice.management.application.LoadCashService;
 import cabanas.garcia.ismael.dddinpractice.management.application.UnloadCashService;
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepository;
@@ -19,5 +20,10 @@ public class HeadOfficeServiceConfiguration {
     @Bean
     public UnloadCashService unloadCashService(HeadOfficeRepository headOfficeRepository, SnackMachineRepository snackMachineRepository) {
         return new UnloadCashService(headOfficeRepository, snackMachineRepository);
+    }
+
+    @Bean
+    public CheckStatusHeadOfficeService checkStatusHeadOfficeService(HeadOfficeRepository headOfficeRepository) {
+        return new CheckStatusHeadOfficeService(headOfficeRepository);
     }
 }

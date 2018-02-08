@@ -1,5 +1,6 @@
 package cabanas.garcia.ismael.dddinpractice.atm.infrastructure.framework.configuration;
 
+import cabanas.garcia.ismael.dddinpractice.atm.application.CheckStatusATMMachineService;
 import cabanas.garcia.ismael.dddinpractice.atm.application.WithdrawMoneyService;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
@@ -12,5 +13,10 @@ public class AtmServiceConfiguration {
     @Bean
     public WithdrawMoneyService withdrawMoneyService(AtmRepository atmRepository, EventProcessor eventProcessor) {
         return new WithdrawMoneyService(atmRepository, eventProcessor);
+    }
+
+    @Bean
+    public CheckStatusATMMachineService checkStatusATMMachineService(AtmRepository atmRepository) {
+        return new CheckStatusATMMachineService(atmRepository);
     }
 }
