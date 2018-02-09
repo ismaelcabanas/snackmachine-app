@@ -14,17 +14,21 @@ public class SnackMachineDto {
 
     @Override
     public String toString() {
-        return "SnackMachineDto{" +
-                "amountInside=" + amountInside +
-                ", amountInTransaction=" + amountInTransaction +
-                '}';
+        return "SnackMachineDto{"
+                + "amountInside=" + amountInside
+                + ", amountInTransaction=" + amountInTransaction
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SnackMachineDto that = (SnackMachineDto) o;
 

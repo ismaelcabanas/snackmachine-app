@@ -16,7 +16,9 @@ public class CheckStatusHeadOfficeService {
 
 
     public HeadOfficeDto checkStatus(HeadOfficeId headOfficeId) {
-        HeadOffice headOffice = headOfficeRepository.findById(headOfficeId).orElseThrow(() -> new HeadOfficeNotFoundException(headOfficeId));
+        HeadOffice headOffice =
+                headOfficeRepository
+                        .findById(headOfficeId).orElseThrow(() -> new HeadOfficeNotFoundException(headOfficeId));
         return new HeadOfficeDto(headOffice.cash().amount(), headOffice.balance());
     }
 }

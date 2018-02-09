@@ -2,7 +2,11 @@ package cabanas.garcia.ismael.dddinpractice.atm.infrastructure.framework.configu
 
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.BalanceChargedHandler;
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepository;
-import cabanas.garcia.ismael.dddinpractice.shared.domain.service.*;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.DefaultEventDispatcher;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.DefaultEventProcessor;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventProcessor;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.Handler;
+import cabanas.garcia.ismael.dddinpractice.shared.domain.service.EventDispatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

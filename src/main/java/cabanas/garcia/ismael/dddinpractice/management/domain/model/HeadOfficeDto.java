@@ -14,17 +14,21 @@ public class HeadOfficeDto {
 
     @Override
     public String toString() {
-        return "HeadOfficeDto{" +
-                "cashAmount=" + cashAmount +
-                ", balance=" + balance +
-                '}';
+        return "HeadOfficeDto{"
+                + "cashAmount=" + cashAmount
+                + ", balance=" + balance
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
 
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         HeadOfficeDto that = (HeadOfficeDto) o;
 

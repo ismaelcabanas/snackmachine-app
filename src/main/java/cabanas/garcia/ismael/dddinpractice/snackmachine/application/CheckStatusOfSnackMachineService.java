@@ -14,7 +14,9 @@ public class CheckStatusOfSnackMachineService {
     }
 
     public SnackMachineDto checkStatus(SnackMachineId snackMachineId) {
-        SnackMachine snackMachine = snackMachineRepository.findById(snackMachineId).orElseThrow(() -> new SnackMachineNotFoundException(snackMachineId));
+        SnackMachine snackMachine =
+                snackMachineRepository
+                        .findById(snackMachineId).orElseThrow(() -> new SnackMachineNotFoundException(snackMachineId));
 
         return new SnackMachineDto(snackMachine.amountInside(), snackMachine.amountInTransaction());
     }

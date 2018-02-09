@@ -197,8 +197,8 @@ public class SnackMachine extends AgreggateRoot<SnackMachineId> {
             return this;
         }
 
-        public Builder setAmountInTransaction(double smAmountInTransaction) {
-            this.smAmountInTransaction = smAmountInTransaction;
+        public Builder setAmountInTransaction(double amountInTransaction) {
+            this.smAmountInTransaction = amountInTransaction;
             return this;
         }
     }
