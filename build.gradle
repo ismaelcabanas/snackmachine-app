@@ -149,8 +149,25 @@ integrationTest {
     }
 }
 
+task acceptanceTest(type: Test) {
+    testClassesDir = sourceSets.acceptancetest.output.classesDir
+    classpath = sourceSets.acceptancetest.runtimeClasspath
+    outputs.upToDateWhen { false }
+
+    // This is not needed, but I like to see which tests have run
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+acceptanceTest {
+    useJUnit {
+        includeCategories 'cabanas.garcia.ismael.dddinpractice.AcceptanceTest'
+    }
+}
 
 dockerCompose.isRequiredBy(integrationTest)
+dockerCompose.isRequiredBy(acceptanceTest)
 
 dockerCompose {
     useComposeFiles = ['docker-compose.yml'] // like 'docker-compose -f <file>'

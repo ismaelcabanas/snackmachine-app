@@ -1,5 +1,6 @@
-package cabanas.garcia.ismael.dddinpractice.snackmachine.application;
+package cabanas.garcia.ismael.dddinpractice;
 
+import cabanas.garcia.ismael.dddinpractice.AcceptanceTest;
 import cabanas.garcia.ismael.dddinpractice.Application;
 import cabanas.garcia.ismael.dddinpractice.atm.application.CheckStatusATMMachineService;
 import cabanas.garcia.ismael.dddinpractice.atm.application.WithdrawMoneyService;
@@ -11,9 +12,14 @@ import cabanas.garcia.ismael.dddinpractice.management.application.UnloadCashServ
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOfficeDto;
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOfficeId;
 import cabanas.garcia.ismael.dddinpractice.shared.domain.model.Money;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.application.BuySnackService;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.application.CheckStatusOfSnackMachineService;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.application.InsertMoneyService;
+import cabanas.garcia.ismael.dddinpractice.snackmachine.application.ReturnMoneyService;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineDto;
 import cabanas.garcia.ismael.dddinpractice.snackmachine.domain.model.SnackMachineId;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,8 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
+@Category(AcceptanceTest.class)
 @ActiveProfiles("dev")
-public class AcceptanceTest {
+public class ApplicationShould {
 
     private static final short FIRST_POSITION = 1;
 
