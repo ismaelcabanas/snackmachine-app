@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @Category(AcceptanceTest.class)
-@ActiveProfiles("dev")
+@ActiveProfiles("acceptance-test")
 public class ApplicationShould {
 
     private static final short FIRST_POSITION = 1;

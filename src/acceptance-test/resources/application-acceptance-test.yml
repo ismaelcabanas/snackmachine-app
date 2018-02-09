@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://${postgres.host}:${postgres.port}/postgres?currentSchema=snackmachine"
+    username: postgres
+    password: postgres
+
+
+logging:
+  level:
+    org:
+      springframework:
+        transaction: DEBUG
+        jdbc: TRACE
+
+flyway:
+    locations: classpath:db/migration, classpath:db/dataset
+    schemas: snackmachine

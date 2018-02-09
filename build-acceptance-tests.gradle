@@ -1,5 +1,3 @@
-apply plugin: 'docker-compose'
-
 configurations {
     acceptancetestCompile.extendsFrom testCompile
     acceptancetestRuntime.extendsFrom testRuntime
@@ -29,20 +27,13 @@ task acceptanceTest(type: Test) {
     }
 }
 
+/*
 acceptanceTest {
     useJUnit {
         includeCategories 'cabanas.garcia.ismael.dddinpractice.AcceptanceTest'
     }
 }
-
-dockerCompose.isRequiredBy(acceptanceTest)
-
-dockerCompose {
-    useComposeFiles = ['docker-compose.yml'] // like 'docker-compose -f <file>'
-    captureContainersOutput = true // prints output of all containers to Gradle output - very useful for debugging
-    stopContainers = true // doesn't call `docker-compose down` - useful for debugging
-    removeContainers = true
-}
+*/
 
 acceptanceTest.doFirst {
     systemProperty 'postgres.host', dockerCompose.servicesInfos.postgresql.'postgresql_1'.host

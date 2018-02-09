@@ -15,7 +15,7 @@ install:
 - sudo pip install docker-compose==1.13.0
 
 script:
-- ./gradlew check test integrationTest acceptanceTest
+- ./gradlew check test integrationTest
 
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
