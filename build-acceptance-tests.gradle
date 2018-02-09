@@ -38,7 +38,7 @@ acceptanceTest {
 dockerCompose.isRequiredBy(acceptanceTest)
 
 dockerCompose {
-    useComposeFiles = ['docker-compose.yml'] // like 'docker-compose -f <file>'
+    useComposeFiles = ['docker-compose-integration-test.yml'] // like 'docker-compose -f <file>'
     captureContainersOutput = true // prints output of all containers to Gradle output - very useful for debugging
     stopContainers = true // doesn't call `docker-compose down` - useful for debugging
     removeContainers = true
