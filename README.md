@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ismaelcabanas/snackmachine-app.svg?branch=master)](https://travis-ci.org/ismaelcabanas/snackmachine-app)
+
 # Domain Driven Design example
 
 Este repositorio es un desarrollo de una aplicación aplicando Domain Driven Design con
