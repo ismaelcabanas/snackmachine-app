@@ -1,0 +1,22 @@
+language: java
+branches:
+  only:
+  - master
+jdk:
+- oraclejdk8
+install:
+- sudo pip install --upgrade pip
+- sudo start-docker-daemon
+- sudo pip install docker-compose==1.13.0
+script:
+- ./gradlew check test integrationTest acceptanceTest
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.m2"
+  - "$HOME/.gradle/caches"
+  - "$HOME/.gradle/wrapper"
+after_success: reports-publisher
+after_failure: reports-publisher
