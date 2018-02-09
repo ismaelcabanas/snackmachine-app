@@ -1,11 +1,13 @@
 package cabanas.garcia.ismael.dddinpractice.management.infrastructure.respository;
 
+import cabanas.garcia.ismael.dddinpractice.IntegrationTest;
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOffice;
 import cabanas.garcia.ismael.dddinpractice.management.domain.model.HeadOfficeId;
 import cabanas.garcia.ismael.dddinpractice.management.domain.repository.HeadOfficeRepository;
 import cabanas.garcia.ismael.dddinpractice.management.infrastructure.repository.HeadOfficeRowMapper;
 import cabanas.garcia.ismael.dddinpractice.Application;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
+@Category(IntegrationTest.class)
 @ActiveProfiles("integration-test")
 public class PostgresHeadOfficeRepositoryShould {
 

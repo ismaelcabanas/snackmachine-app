@@ -1,10 +1,12 @@
 package cabanas.garcia.ismael.dddinpractice.atm.infrastructure.repository;
 
+import cabanas.garcia.ismael.dddinpractice.IntegrationTest;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.Atm;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.AtmId;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.repository.AtmRepository;
 import cabanas.garcia.ismael.dddinpractice.Application;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
+@Category(IntegrationTest.class)
 @ActiveProfiles("integration-test")
 public class PostgresAtmRepositoryShould {
 
