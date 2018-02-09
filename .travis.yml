@@ -4,12 +4,19 @@ branches:
   - master
 jdk:
 - oraclejdk8
+
+sudo: required
+
+services:
+- docker
+
 install:
 - sudo pip install --upgrade pip
-- sudo start-docker-daemon
 - sudo pip install docker-compose==1.13.0
+
 script:
 - ./gradlew check test integrationTest acceptanceTest
+
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
