@@ -1,7 +1,5 @@
 package cabanas.garcia.ismael.dddinpractice;
 
-import cabanas.garcia.ismael.dddinpractice.AcceptanceTest;
-import cabanas.garcia.ismael.dddinpractice.Application;
 import cabanas.garcia.ismael.dddinpractice.atm.application.CheckStatusATMMachineService;
 import cabanas.garcia.ismael.dddinpractice.atm.application.WithdrawMoneyService;
 import cabanas.garcia.ismael.dddinpractice.atm.domain.model.AtmDto;
