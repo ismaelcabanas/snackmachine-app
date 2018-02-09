@@ -1,26 +1,26 @@
 apply plugin: 'docker-compose'
 
 configurations {
-    integrationtestCompile.extendsFrom testCompile
-    integrationtestRuntime.extendsFrom testRuntime
+    acceptancetestCompile.extendsFrom testCompile
+    acceptancetestRuntime.extendsFrom testRuntime
 }
 
 sourceSets {
-    integrationtest {
+    acceptancetest {
         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
 
             // Use "java" if you don't use Scala as a programming language
-            srcDir file('src/integration-test/java')
+            srcDir file('src/acceptance-test/java')
         }
-        resources.srcDir file('src/integration-test/resources')
+        resources.srcDir file('src/acceptance-test/resources')
     }
 }
 
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationtest.output.classesDir
-    classpath = sourceSets.integrationtest.runtimeClasspath
+task acceptanceTest(type: Test) {
+    testClassesDir = sourceSets.acceptancetest.output.classesDir
+    classpath = sourceSets.acceptancetest.runtimeClasspath
     outputs.upToDateWhen { false }
 
     // This is not needed, but I like to see which tests have run
@@ -29,13 +29,13 @@ task integrationTest(type: Test) {
     }
 }
 
-integrationTest {
+acceptanceTest {
     useJUnit {
-        includeCategories 'cabanas.garcia.ismael.dddinpractice.IntegrationTest'
+        includeCategories 'cabanas.garcia.ismael.dddinpractice.AcceptanceTest'
     }
 }
 
-dockerCompose.isRequiredBy(integrationTest)
+dockerCompose.isRequiredBy(acceptanceTest)
 
 dockerCompose {
     useComposeFiles = ['docker-compose.yml'] // like 'docker-compose -f <file>'
@@ -44,9 +44,9 @@ dockerCompose {
     removeContainers = true
 }
 
-integrationTest.doFirst {
+acceptanceTest.doFirst {
     systemProperty 'postgres.host', dockerCompose.servicesInfos.postgresql.'postgresql_1'.host
     systemProperty 'postgres.port', dockerCompose.servicesInfos.postgresql.'postgresql_1'.port
 }
 
-integrationTest.mustRunAfter test
+acceptanceTest.mustRunAfter test
